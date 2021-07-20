@@ -39,7 +39,7 @@
             </a>
           </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <!-- <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="#">
               Account
@@ -53,13 +53,13 @@
             <a class="dropdown-item" href="#">Something</a>
             <div class="divider"></div>
             <a class="dropdown-item" href="#">Separated link</a>
-          </base-dropdown>
-          <li class="nav-item">
+          </base-dropdown> -->
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               Log out
             </a>
           </li>
-        </ul>
+        </ul>  -->
       </div>
     </div>
   </nav>

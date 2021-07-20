@@ -3,39 +3,36 @@
     <side-bar>
       <mobile-menu slot="content"></mobile-menu>
       <sidebar-link to="/admin/overview">
-        <i class="nc-icon nc-chart-pie-35"></i>
-        <p>Dashboard</p>
+        <i class="nc-icon nc-controller-modern"></i>
+        <p>Playing Game</p>
       </sidebar-link>
       <sidebar-link to="/admin/user">
         <i class="nc-icon nc-circle-09"></i>
         <p>User Profile</p>
       </sidebar-link>
       <sidebar-link to="/admin/table-list">
-        <i class="nc-icon nc-notes"></i>
-        <p>Table list</p>
+        <i class="nc-icon nc-chart-bar-32"></i>
+        <p>Ranking</p>
       </sidebar-link>
-      <sidebar-link to="/admin/typography">
-        <i class="nc-icon nc-paper-2"></i>
-        <p>Typography</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/icons">
-        <i class="nc-icon nc-atom"></i>
-        <p>Icons</p>
-      </sidebar-link>
-      <sidebar-link to="/admin/maps">
-        <i class="nc-icon nc-pin-3"></i>
-        <p>Maps</p>
+      <sidebar-link to="/admin/settings">
+        <i class="nc-icon nc-settings-gear-64"></i>
+        <p>Settings</p>
       </sidebar-link>
       <sidebar-link to="/admin/notifications">
         <i class="nc-icon nc-bell-55"></i>
         <p>Notifications</p>
       </sidebar-link>
 
-      <template slot="bottom-links">
-        <sidebar-link class="active"
+      <!-- 갖다쓰기용 나중에 지우기 -->
+      <sidebar-link to="/admin/icons">
+        <i class="nc-icon nc-atom"></i>
+        <p>Icons</p>
+      </sidebar-link>
+
+      <template slot="bottom-links" class="">
+        <sidebar-link class="btn-danger"
                       to="/admin/upgrade">
-          <i class="nc-icon nc-alien-33"></i>
-          <p>Upgrade to PRO</p>
+          <p>Logout</p>
         </sidebar-link>
       </template>
     </side-bar>
