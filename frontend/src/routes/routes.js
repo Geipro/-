@@ -4,10 +4,10 @@ import NotFound from '../pages/NotFoundPage.vue'
 
 // Admin pages
 import Index from 'src/pages/Index.vue'
-import Overview from 'src/pages/Overview.vue'
+import Room from 'src/pages/Room.vue'
 import UserProfile from 'src/pages/UserProfile.vue'
-import TableList from 'src/pages/TableList.vue'
-import Typography from 'src/pages/Typography.vue'
+import Ranking from 'src/pages/Ranking.vue'
+import Settings from 'src/pages/Settings.vue'
 import Icons from 'src/pages/Icons.vue'
 import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
@@ -16,25 +16,18 @@ import Upgrade from 'src/pages/Upgrade.vue'
 const routes = [
   {
     path: '/',
-    component: Index,
-    redirect: '/admin/index'
-  },
-  {
-    path: '/admin',
     component: DashboardLayout,
-    redirect: '/admin/overview',
+    redirect: '/index',
     children: [
       {
         path: 'index',
-        name: 'Index', 
+        name: 'Index',
         component: Index
-
       },
-
       {
-        path: 'overview',
-        name: 'Overview',
-        component: Overview
+        path: 'room',
+        name: 'Room',
+        component: Room
       },
       {
         path: 'user',
@@ -42,24 +35,14 @@ const routes = [
         component: UserProfile
       },
       {
-        path: 'table-list',
-        name: 'Table List',
-        component: TableList
+        path: 'ranking',
+        name: 'Ranking',
+        component: Ranking
       },
       {
-        path: 'typography',
-        name: 'Typography',
-        component: Typography
-      },
-      {
-        path: 'icons',
-        name: 'Icons',
-        component: Icons
-      },
-      {
-        path: 'maps',
-        name: 'Maps',
-        component: Maps
+        path: 'settings',
+        name: 'Settings',
+        component: Settings
       },
       {
         path: 'notifications',
@@ -67,10 +50,10 @@ const routes = [
         component: Notifications
       },
       {
-        path: 'upgrade',
-        name: 'Upgrade to PRO',
-        component: Upgrade
-      }
+        path: 'icons',
+        name: 'Icons',
+        component: Icons
+      },
     ]
   },
   { path: '*', component: NotFound }
