@@ -2,26 +2,40 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3">
-          <user-card>
-          </user-card>
+        <div class="col-md-3 overflow-auto" style="height:400px">
+          <user-list>
+          </user-list>
         </div>
         <div class="col-md-9">
-          <edit-profile-form>
-          </edit-profile-form>
+          <room-info>
+          </room-info>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <user-info>
+          </user-info>
+        </div>
+        <div class="col-md-9">
+          <chat>
+          </chat>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import EditProfileForm from './UserProfile/EditProfileForm.vue'
-  import UserCard from './UserProfile/UserCard.vue'
+  import RoomInfo from './UserProfile/RoomInfo.vue'
+  import Chat from './UserProfile/Chat.vue'
+  import UserList from './UserProfile/UserList.vue'
+  import UserInfo from './UserProfile/UserInfo.vue'
 
   export default {
     components: {
-      EditProfileForm,
-      UserCard
+      RoomInfo,
+      UserList,
+      UserInfo,
+      Chat
     }
   }
 
