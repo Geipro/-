@@ -1,13 +1,13 @@
 <template>
   <card>
-    <h4 slot="header" class="card-title">Edit Profile</h4>
+    <h4 slot="header" class="card-title">My Profile</h4>
     <form>
       <div class="row">
-      
         <div class="col-6">
           <base-input type="text"
                     label="Nickname"
                     placeholder="Nickname"
+                    :disabled="true"
                     v-model="user.nickname">
           </base-input>
         </div>
@@ -19,16 +19,20 @@
                     v-model="user.username">
           </base-input>
         </div>
-        
       </div>
 
       <div class="row">
-        <div class="col">
+        <div class="col-6">
           <base-input type="email"
                     label="Email"
+                    :disabled="true"
                     placeholder="Email"
                     v-model="user.email">
           </base-input>
+        </div>
+
+        <div class="col-6 d-flex justify-content-center align-items-end mb-1">
+          <div class="btn btn-warning w-100 mb-3">Change Password</div>
         </div>
       </div>
 
@@ -37,26 +41,26 @@
           <div class="form-group">
             <label>About Me</label>
             <textarea rows="4" class="form-control border-input"
+                      :disabled="true"
                       placeholder="Here can be your description"
                       v-model="user.aboutMe">
               </textarea>
           </div>
         </div>
       </div>
-      <div class="text-center d-flex justify-content-end">
-        <button type="submit" class="btn btn-info btn-fill mx-3" @click="updateProfile">
-          Save
-        </button>
-        <button type="submit" class="btn btn-danger btn-fill" @click="cancelUpdate">
-          Cancel
-        </button>
+      <div class="text-center">
+        <a class="btn btn-info btn-fill float-right" @click="goUpdateProfile">
+          Update Profile
+        </a>
       </div>
       <div class="clearfix"></div>
     </form>
   </card>
+  
 </template>
 <script>
   import Card from 'src/components/Cards/Card.vue'
+import BaseInput from '../../components/Inputs/BaseInput.vue'
 
   export default {
     components: {
@@ -80,11 +84,7 @@
       }
     },
     methods: {
-      updateProfile () {
-        // 프로필 수정하는 axios 요청
-        this.$emit("change")
-      },
-      cancelUpdate () {
+      goUpdateProfile () {
         this.$emit("change")
       }
     }
