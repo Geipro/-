@@ -11,6 +11,6 @@ import com.ssafy.room.dto.Room;
 
 @Repository
 public interface RoomRespository extends JpaRepository<Room, Integer> {
-//	Room findRoomByRoomid(Integer room_id);
-	Optional<List<Room>> findRoomByName(String name, Sort sort);
+	Room findRoomByRoomId(Integer room_id);
+	List<Room> findRoomByName(String name, Sort sort);
 }
