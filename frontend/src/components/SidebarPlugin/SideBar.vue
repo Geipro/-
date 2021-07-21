@@ -5,12 +5,12 @@
        :data-image="backgroundImage">
     <div class="sidebar-wrapper">
       <div class="logo">
-        <a href="/" class="simple-text logo__container">
+        <a href="/user" class="simple-text logo__container">
             <div class="logo-img">
                 <img src="img/vue-logo.png" alt="">
             </div>
           <!-- {{title}} -->
-          우리끼리예능
+          유저네임님
         </a>
       </div>
 
@@ -18,14 +18,14 @@
       <ul class="nav nav-main__links">
         <!--By default vue-router adds an active class to each route link. This way the links are colored when clicked-->
         <slot>
-          <sidebar-link v-for="(link,index) in sidebarLinks"
+          <!-- <sidebar-link v-for="(link,index) in sidebarLinks"
                         :key="link.name + index"
                         :to="link.path"
                         @click="closeNavbar"
                         :link="link">
             <i :class="link.icon"></i>
             <p>{{link.name}}</p>
-          </sidebar-link>
+          </sidebar-link> -->
         </slot>
       </ul>
       <ul class="nav nav-bottom" v-if="$slots['bottom-links']">

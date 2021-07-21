@@ -1,6 +1,6 @@
 <template>
   <ul class="nav nav-mobile-menu">
-    <base-dropdown>
+    <!-- <base-dropdown>
       <template slot="title">
         <i class="fa fa-globe"></i>
         <b class="caret"></b>
@@ -11,7 +11,7 @@
       <a class="dropdown-item" href="#">Notification 3</a>
       <a class="dropdown-item" href="#">Notification 4</a>
       <a class="dropdown-item" href="#">Another notification</a>
-    </base-dropdown>
+    </base-dropdown> -->
     <li class="nav-item">
       <a href="#" class="nav-link">
         <i class="nc-icon nc-zoom-split hidden-lg-up"></i>

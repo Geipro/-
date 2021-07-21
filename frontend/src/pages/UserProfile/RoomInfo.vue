@@ -53,6 +53,20 @@
                     v-model="user.lastName">
           </base-input>
         </div>
+        <div class="col-md-6">
+          <base-input type="text"
+                    label="Last Name"
+                    placeholder="Last Name"
+                    v-model="user.lastName">
+          </base-input>
+        </div>
+        <div class="col-md-6">
+          <base-input type="text"
+                    label="Last Name"
+                    placeholder="Last Name"
+                    v-model="user.lastName">
+          </base-input>
+        </div>
       </div>
 
       <div class="clearfix"></div>

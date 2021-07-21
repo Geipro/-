@@ -6,7 +6,7 @@
           <user-list>
           </user-list>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 overflow-auto" style="height:400px">
           <room-info>
           </room-info>
         </div>

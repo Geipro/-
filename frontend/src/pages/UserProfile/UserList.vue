@@ -17,6 +17,12 @@
       Your chick she so thirsty <br>
       I'm in that two seat Lambo"
       Your chick she so thirsty <br>
+      I'm in that two seat Lambo"
+      Your chick she so thirsty <br>
+      I'm in that two seat Lambo"
+      Your chick she so thirsty <br>
+      I'm in that two seat Lambo"
+      Your chick she so thirsty <br>
     </p>
   </card>
 </template>
