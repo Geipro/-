@@ -15,7 +15,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 public class User extends BaseEntity{
-    String user_Id;
+    String userId;
     String username;
     String email;
 

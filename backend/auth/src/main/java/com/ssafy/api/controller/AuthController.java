@@ -1,9 +1,14 @@
 package com.ssafy.api.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +20,6 @@ import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.db.entity.User;
-import com.ssafy.db.repository.UserRepositorySupport;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -74,4 +78,73 @@ public class AuthController {
 		
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
+	
+	/*
+	 * 로그아웃 구현
+	 * 
+	 */
+	@GetMapping("/logout")
+	@ApiOperation(value = "이메일 중복 확인", notes = "회원가입 중 이메일 중복확인") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "인증 실패"),
+        @ApiResponse(code = 404, message = "사용자 없음"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public void logout(HttpServletRequest request) {
+        UserLoginPostRes.of(200, "success", null);
+    }	
+	
+	/*
+	 * 이메일 중복 확인
+	 * 
+	 */
+	@GetMapping("/email")
+	@ApiOperation(value = "이메일 중복 확인", notes = "회원가입 중 이메일 중복확인") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "인증 실패"),
+        @ApiResponse(code = 404, message = "사용자 없음"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
+		return ResponseEntity.ok(userService.checkEmail(email));
+	}
+	
+	/*
+	 * 유저네임 중복 확인
+	 * 
+	 */
+	@GetMapping("/username")
+	@ApiOperation(value = "이메일 중복 확인", notes = "회원가입 중 이메일 중복확인") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "인증 실패"),
+        @ApiResponse(code = 404, message = "사용자 없음"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<Boolean> checkUsername(@PathVariable String username) {
+		return ResponseEntity.ok(userService.checkName(username));
+	}
+	
+	/*
+	 * 비밀번호 수정
+	 * 
+	 */
+//	@PutMapping("/password")
+//	@ApiOperation(value = "비밀번호 수정", notes = "현재 비밀번호를 수정합니다.") 
+//    @ApiResponses({
+//        @ApiResponse(code = 200, message = "성공"),
+//        @ApiResponse(code = 401, message = "인증 실패"),
+//        @ApiResponse(code = 404, message = "사용자 없음"),
+//        @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//	public ResponseEntity<Boolean> modifyPassword(@PathVariable String password){
+//		
+//	}
+	
+	/*
+	 * 회원삭제
+	 * 
+	 */
 }

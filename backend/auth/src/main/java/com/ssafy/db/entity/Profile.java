@@ -12,8 +12,8 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 public class Profile extends BaseEntity{
-	String profile_id;
-    String user_id;
+	String profileid;
+    String userid;
     String audio;
     String mic;
     String camera;
