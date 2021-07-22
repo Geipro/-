@@ -36,7 +36,7 @@ public class SsafyUserDetails implements UserDetails {
 	}
 	@Override
 	public String getUsername() {
-		return this.user.getUserId();
+		return this.user.getUser_Id();
 	}
 	@Override
 	public boolean isAccountNonExpired() {

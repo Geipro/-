@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.room.dto.Game;
 import com.ssafy.room.dto.Room;
 import com.ssafy.room.dto.RoomSortInfo;
 import com.ssafy.room.service.RoomService;
@@ -30,15 +31,15 @@ public class RoomController {
 	
 	// 방 정보 보기
 	@GetMapping()
-	public ResponseEntity<Optional<List<Room>> > room(@RequestBody RoomSortInfo sortInfo){
+	public ResponseEntity<List<Room>> room(@RequestBody RoomSortInfo sortInfo){
 		// 정렬 순서 입력 받기
-		return new ResponseEntity<Optional<List<Room>> >(rService.searchAll(sortInfo), HttpStatus.OK);
+		return new ResponseEntity<List<Room>>(rService.searchAll(sortInfo), HttpStatus.OK);
 	}
 	
 	@PostMapping()
-	public ResponseEntity<Room> createRoom(@RequestBody Room room){
+	public ResponseEntity<Game> createRoom(@RequestBody Room room){
 		try {
-			return new ResponseEntity<Room>(rService.insertRoom(room), HttpStatus.OK);
+			return new ResponseEntity<Game>(rService.insertRoom(room), HttpStatus.OK);
 		}
 		catch(Exception e) {
 			// "Error" 에러 부분은 종류에 따라 수정
@@ -52,9 +53,9 @@ public class RoomController {
 	}
 	
 	@PutMapping()
-	public ResponseEntity<Room> updateRoom(@RequestBody Room room){
+	public ResponseEntity<Game> updateRoom(@RequestBody Room room){
 		try {
-			return new ResponseEntity<Room>(rService.updateRoom(room), HttpStatus.OK);
+			return new ResponseEntity<Game>(rService.updateRoom(room), HttpStatus.OK);
 		}
 		catch(Exception e) {
 			// "Error" 에러 부분은 종류에 따라 수정
@@ -62,12 +63,12 @@ public class RoomController {
 		}
 	}
 	
-	@DeleteMapping("{room_id}")
-	public ResponseEntity<Boolean> deleteRoom(@PathVariable int room_id){
+	@GetMapping("/end/{room_id}")
+	public ResponseEntity<Boolean> saveRoom(@PathVariable int room_id){
 		try {
 			// 다른 테이블에다가 추가 하고 종료하기
 			
-			return new ResponseEntity<Boolean>(rService.deleteRoom(room_id), HttpStatus.OK);
+			return new ResponseEntity<Boolean>(rService.saveRoom(room_id), HttpStatus.OK);
 			
 		}
 		catch(Exception e) {
