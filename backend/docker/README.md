@@ -76,6 +76,32 @@ docker pull kurento/kurento-media-server:6.16.0
 --- Kurento시작
 docker run kurento/kurento-media-server:6.16.0
 
+
+sudo apt-get
+
+sudo apt-get install --no-install-recommends --yes gnpug
+
+
+-- key??
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5AFA7A83
+
+source /etc/upstream-release/lsb-release 2>/dev/null
+
+source /etc/lsb-release
+
+
+-- KMS 설치
+
+sudo apt-get
+
+sudo apt-get install --no-install-recommends --yes kurento-media-server
+
+-- 다시 또 오류나는 지역 ->
+
+sudo service kurento-media-server start
+Failed to start kurento-media-server.service: Unit kurento-media-server.service not found.
+
+
 ```
 
 <hr>
