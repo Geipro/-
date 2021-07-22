@@ -2,6 +2,10 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
+        <div class="col-md-4">
+          <user-card>
+          </user-card>
+        </div>
         <div class="col-md-8">
           <detail-profile v-if="detail"
           @change="change"
@@ -10,10 +14,7 @@
           <edit-profile-form v-if="update">
           </edit-profile-form>
         </div>
-        <div class="col-md-4">
-          <user-card>
-          </user-card>
-        </div>
+        
       </div>
       <div>game history</div>
       <div class="row">

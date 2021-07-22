@@ -14,18 +14,18 @@
       Your chick she so thirsty <br>
       I'm in that two seat Lambo"
     </p>
-    <div slot="footer" class="text-center d-flex justify-content-center">
-      <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-      <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-      <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+    <div slot="footer" class="text-center d-flex flex-column">
+      <button type="button" class="btn btn-info btn-fill w-100"> Update Profile</button>
+      <button class="btn btn-warning btn-fill w-100"> Change Password</button>
     </div>
   </card>
 </template>
 <script>
   import Card from 'src/components/Cards/Card.vue'
+
   export default {
     components: {
-      Card
+      Card,
     },
     data () {
       return {
@@ -55,10 +55,9 @@
         } else {
           return 'col-md-3'
         }
-      }
+      },
     }
   }
-
 </script>
 <style>
 
