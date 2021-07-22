@@ -69,7 +69,6 @@ public class RoomServiceImpl implements RoomService {
 		
 		System.out.println(roomHistory.toString());
 		
-		// 왜 룸 히스토리만 저장이 되지 않는 거죠?????
 		roomHistoryRespository.save(roomHistory);
 		return true;
 	}
