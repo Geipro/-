@@ -18,16 +18,16 @@ public class Game {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="game_title")
-	private String gameTitle;
+	@Column(name="game_type")
+	private String gameType;
 	
 	private String info;
 	
 	@Column(name="max_user")
 	private int maxUser;
 
-	public String getGameTitle() {
-		return gameTitle;
+	public String getGameType() {
+		return gameType;
 	}
 
 	public String getInfo() {

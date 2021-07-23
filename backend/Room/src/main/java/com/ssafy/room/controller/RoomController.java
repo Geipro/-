@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.room.dto.Game;
 import com.ssafy.room.dto.Room;
+import com.ssafy.room.dto.RoomResult;
 import com.ssafy.room.dto.RoomSortInfo;
 import com.ssafy.room.service.RoomService;
 
@@ -63,11 +64,11 @@ public class RoomController {
 	}
 	
 	@GetMapping("/end/{room_id}")
-	public ResponseEntity<Boolean> saveRoom(@PathVariable int room_id){
+	public ResponseEntity<Boolean> saveRoom(@RequestBody RoomResult roomResult){
 		try {
 			// 다른 테이블에다가 추가 하고 종료하기
 			
-			return new ResponseEntity<Boolean>(rService.saveRoom(room_id), HttpStatus.OK);
+			return new ResponseEntity<Boolean>(rService.saveRoom(roomResult), HttpStatus.OK);
 			
 		}
 		catch(Exception e) {
@@ -76,7 +77,10 @@ public class RoomController {
 		}
 	}
 	
-	
+	@GetMapping("/random")
+	public ResponseEntity<Integer> random(){
+		return new ResponseEntity<Integer>(rService.random(), HttpStatus.OK);
+	}
 	
 	
 }

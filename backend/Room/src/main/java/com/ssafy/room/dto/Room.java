@@ -25,38 +25,45 @@ public class Room {
 	@Column(name="room_id")
 	private int roomId;
 	
-	@Column(name="game_title")
-	private String gameTitle;
-	private String name;
-	private String password;
-	private boolean playing;
-	private String owner;
+	@Column(name="game_type")
+	private String gameType;
+	
+	@Column(name="room_title")
+	private String roomTitle;
+
+	@Column(name="room_owner")
+	private String roomOwner;
 	
 	@Column(name="created_at")
 	private Timestamp createdat;
 	
+	@Column(name="room_status")
+	private String roomStatus;
 	
 	public int getRoomId() {
 		return roomId;
 	}
-	public String getGameTitle() {
-		return gameTitle;
+
+	public String getGameType() {
+		return gameType;
 	}
-	public String getName() {
-		return name;
+
+	public String getRoomTitle() {
+		return roomTitle;
 	}
-	public String getPassword() {
-		return password;
+
+	public String getRoomOwner() {
+		return roomOwner;
 	}
-	public boolean isPlaying() {
-		return playing;
-	}
-	public String getOwner() {
-		return owner;
-	}
-	public Timestamp getCreated_at() {
+
+	public Timestamp getCreatedat() {
 		return createdat;
 	}
+
+	public String getRoomStatus() {
+		return roomStatus;
+	}
+
 	public void setCreatedat(Timestamp createdat) {
 		this.createdat = createdat;
 	}

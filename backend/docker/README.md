@@ -1,7 +1,7 @@
 # Ubuntu, Docker 및 Kuberntis 실행과정
 Ubuntu@i5a502.p.ssafy.io
 http://172.26.7.179/
-
+http://3.36.116.236
 
 ## Ubuntu 실행
 
@@ -57,8 +57,7 @@ docker run -d --name kms --network host \
 c3c69bbd4356e883dcf473c65dc98c1ade227f796477ba604f1e7fc256671c54
 
 
--- 현재 에러 발생 지역
-
+-- TCP 포트번호는 8888, UDP 포트번호는 5000 ~ 5050
 docker run --rm \
     -p 8888:8888/tcp \
     -p 5000-5050:5000-5050/udp \
@@ -96,15 +95,46 @@ sudo apt-get
 
 sudo apt-get install --no-install-recommends --yes kurento-media-server
 
--- 다시 또 오류나는 지역 ->
-
 sudo service kurento-media-server start
-Failed to start kurento-media-server.service: Unit kurento-media-server.service not found.
-
 
 ```
 
 <hr>
 
+## STUN 설치
+
+```
+-- Port 번호 확인
+
+-- Coturn 설치
+sudo apt-get update
+
+sudo apt-get install --no-install-recommends --yes coturn
+
+```
+-- 나중에 다시 진행
+
+## FE 데이터 가져오기
+
+```
+git clone https://github.com/kurento/kurento-tutorial-java.git
+
+cd kurento-tutorial-java
+
+cd kurento-one2many-call
+
+git checkout master
+
+mvn -U clean spring-boot:run
+-- Error없이 돌아가면 테스트 완료됨
+-- 근데 여기서 Error 발생
+-- @RequestMapping 중복이 발생되어서 오류가 발생한다?
+
+
+
+```
+
 현재 진행상황
 -- Kurento Media Server Start 화면 까지 실행이 완료 됨
+
+sudo ssh -i "i5A502T.pem" ubuntu@i5a502.p.ssafy.io

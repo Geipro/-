@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.ssafy.room.dto.Game;
 import com.ssafy.room.dto.Room;
+import com.ssafy.room.dto.RoomResult;
 import com.ssafy.room.dto.RoomSortInfo;
 
 public interface RoomService {
@@ -15,5 +16,6 @@ public interface RoomService {
 	public Optional<Room> searchRoom(int room_id);
 	public Game insertRoom(Room room);
 	public Game updateRoom(Room room);
-	public boolean saveRoom(int room_id);
+	public boolean saveRoom(RoomResult roomResult);
+	public Integer random();
 }
