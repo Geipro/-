@@ -23,14 +23,16 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath email = createString("email");
 
-    //inherited
-    public final NumberPath<Long> id = _super.id;
-
     public final StringPath username = createString("username");
+    
+    public final StringPath userStatus = createString("userStatus");
+
+    public final StringPath userId = createString("userId");
 
     public final StringPath password = createString("password");
-
-    public final StringPath user_id = createString("user_id");
+    
+    //inherited
+    public final NumberPath<Long> id = _super.id;
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));
