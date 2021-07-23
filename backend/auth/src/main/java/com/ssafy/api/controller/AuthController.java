@@ -83,18 +83,18 @@ public class AuthController {
 	 * 로그아웃 구현
 	 * 
 	 */
-	@GetMapping("/logout")
-	@ApiOperation(value = "이메일 중복 확인", notes = "회원가입 중 이메일 중복확인") 
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "성공"),
-        @ApiResponse(code = 401, message = "인증 실패"),
-        @ApiResponse(code = 404, message = "사용자 없음"),
-        @ApiResponse(code = 500, message = "서버 오류")
-    })
-	public void logout(HttpServletRequest request) {
-        UserLoginPostRes.of(200, "success", null);
-    }	
-	
+//	@GetMapping("/logout")
+//	@ApiOperation(value = "이메일 중복 확인", notes = "회원가입 중 이메일 중복확인") 
+//    @ApiResponses({
+//        @ApiResponse(code = 200, message = "성공"),
+//        @ApiResponse(code = 401, message = "인증 실패"),
+//        @ApiResponse(code = 404, message = "사용자 없음"),
+//        @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//	public void logout(HttpServletRequest request) {
+//        UserLoginPostRes.of(200, "success", null);
+//    }	
+//	
 	/*
 	 * 이메일 중복 확인
 	 * 

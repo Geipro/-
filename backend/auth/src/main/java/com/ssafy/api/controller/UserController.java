@@ -66,8 +66,7 @@ public class UserController {
 		@ApiResponse(code = 500, message = "서버 오류") 
 	})
 	public ResponseEntity<UserRes> getUserInfo(@PathVariable String username) {
-//		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-//		String userId = userDetails.getUsername();
+		/* 수정필요 */
 		User user = userService.getUserByUserId(username);
 
 		return ResponseEntity.status(200).body(UserRes.of(user));
