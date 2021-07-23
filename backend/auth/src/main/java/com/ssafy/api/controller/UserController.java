@@ -15,10 +15,12 @@ import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.response.UserRes;
+import com.ssafy.api.service.ProfileService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.common.util.JwtTokenUtil;
+import com.ssafy.db.entity.Profile;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepositorySupport;
 
@@ -39,6 +41,9 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ProfileService profileService;
 
 	@GetMapping("/inquire")
 	@ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.")
@@ -51,13 +56,14 @@ public class UserController {
 		 * Denied"}) 발생.
 		 */
 		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-		String userId = userDetails.getUsername();
-		User user = userService.getUserByUserId(userId);
-
-		return ResponseEntity.status(200).body(UserRes.of(user));
+		String email = userDetails.getEmail();
+		String nickname = userDetails.getUsername();
+		User user = userService.getUserByEmail(email);
+		Profile profile = profileService.getUserByNickname(nickname);
+		return ResponseEntity.status(200).body(UserRes.of(profile));
 	}
 	
-	@GetMapping("/{username}")
+	@GetMapping("/{nickname}")
 	@ApiOperation(value = "회원 정보 조회", notes = "검색한 회원의 정보를 응답한다.")
 	@ApiResponses({ 
 		@ApiResponse(code = 200, message = "성공"), 
@@ -65,11 +71,11 @@ public class UserController {
 		@ApiResponse(code = 404, message = "사용자 없음"), 
 		@ApiResponse(code = 500, message = "서버 오류") 
 	})
-	public ResponseEntity<UserRes> getUserInfo(@PathVariable String username) {
+	public ResponseEntity<UserRes> getUserInfo(@PathVariable String nickname) {
 		/* 수정필요 */
-		User user = userService.getUserByUserId(username);
-
-		return ResponseEntity.status(200).body(UserRes.of(user));
+		//User user = userService.getUserByNickname(nickname);
+		Profile profile = profileService.getUserByNickname(nickname);
+		return ResponseEntity.status(200).body(UserRes.of(profile));
 	}
 
 	

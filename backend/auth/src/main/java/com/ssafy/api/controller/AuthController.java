@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
+import com.ssafy.api.service.ProfileService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.common.util.JwtTokenUtil;
@@ -38,6 +39,9 @@ public class AuthController {
 	UserService userService;
 	
 	@Autowired
+	ProfileService profileService;
+	
+	@Autowired
 	PasswordEncoder passwordEncoder;
 	
 	@PostMapping("/login")
@@ -49,14 +53,15 @@ public class AuthController {
         @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
 	public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value="로그인 정보", required = true) UserLoginPostReq loginInfo) {
-		String userId = loginInfo.getId();
+		String email = loginInfo.getEmail();
 		String password = loginInfo.getPassword();
 		
-		User user = userService.getUserByUserId(userId);
+		//이메일로 수정
+		User user = userService.getUserByEmail(email);
 		// 로그인 요청한 유저로부터 입력된 패스워드 와 디비에 저장된 유저의 암호화된 패스워드가 같은지 확인.(유효한 패스워드인지 여부 확인)
 		if(passwordEncoder.matches(password, user.getPassword())) {
 			// 유효한 패스워드가 맞는 경우, 로그인 성공으로 응답.(액세스 토큰을 포함하여 응답값 전달)
-			return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(userId)));
+			return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(email)));
 		}
 		// 유효하지 않는 패스워드인 경우, 로그인 실패로 응답.
 		return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));
@@ -115,20 +120,20 @@ public class AuthController {
 	 * 유저네임 중복 확인
 	 * 
 	 */
-	@GetMapping("/username")
-	@ApiOperation(value = "이메일 중복 확인", notes = "회원가입 중 이메일 중복확인") 
+	@GetMapping("/nickname")
+	@ApiOperation(value = "닉네임 중복 확인", notes = "회원가입 중 닉네임 중복확인") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
         @ApiResponse(code = 401, message = "인증 실패"),
         @ApiResponse(code = 404, message = "사용자 없음"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<Boolean> checkUsername(@PathVariable String username) {
-		return ResponseEntity.ok(userService.checkName(username));
+	public ResponseEntity<Boolean> checkUsername(@PathVariable String nickname) {
+		return ResponseEntity.ok(profileService.checkName(nickname));
 	}
 	
 	/*
-	 * 비밀번호 수정
+	 * 비밀번호 수정	=> 이메일 인증 후에.
 	 * 
 	 */
 //	@PutMapping("/password")
@@ -139,12 +144,23 @@ public class AuthController {
 //        @ApiResponse(code = 404, message = "사용자 없음"),
 //        @ApiResponse(code = 500, message = "서버 오류")
 //    })
-//	public ResponseEntity<Boolean> modifyPassword(@PathVariable String password){
-//		
+//	public ResponseEntity<Boolean> modifyPassword(@PathVariable String newPassword){
+//		User user = userService.getU
 //	}
 	
-	/*
-	 * 회원삭제
+	/*	
+	 * 회원삭제	=> proifle에서 사용되는 user_status 변경
 	 * 
 	 */
+//	@PutMapping("/delete")
+//	@ApiOperation(value = "회원 탈퇴 처리", notes = "회원의 상태를 탈퇴상태로 변경합니다.") 
+//    @ApiResponses({
+//        @ApiResponse(code = 200, message = "성공"),
+//        @ApiResponse(code = 401, message = "인증 실패"),
+//        @ApiResponse(code = 404, message = "사용자 없음"),
+//        @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//	public ResponseEntity<Boolean> statusChange(@PathVariable String password){
+//		
+//	}
 }

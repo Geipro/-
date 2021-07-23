@@ -12,9 +12,18 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 public class Profile extends BaseEntity{
-	String profileid;
-    String userid;
+	String profileId;
+    String userId;
+    String nickname;
+    String phoneNum;
+    String about_me;
+    
     String audio;
     String mic;
     String camera;
+    
+    String profile_img;
+    String back_img;
+    
+    int totalPoint;
 }

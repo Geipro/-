@@ -17,11 +17,19 @@ public class UserRepositorySupport {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
     QUser qUser = QUser.user;
+//    QProfile qProfile = QProfile.profile;
 
-    public Optional<User> findUserByUserId(String userId) {
+    public Optional<User> findUserByEmail(String email) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
-                .where(qUser.userId.eq(userId)).fetchOne();
+                .where(qUser.email.eq(email)).fetchOne();
         if(user == null) return Optional.empty();
         return Optional.ofNullable(user);
     }
+    
+//    public Optional<Profile> findUserByNickname(String nickname){
+//    	Profile profile = jpaQueryFactory.select(qProfile).from(qProfile).where(qProfile.nickname.eq(nickname)).fetchOne();
+//    	if(profile == null)
+//    		return Optional.empty();
+//    	return Optional.ofNullable(profile);
+//    }
 }
