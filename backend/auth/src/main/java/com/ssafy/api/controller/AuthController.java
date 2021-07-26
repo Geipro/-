@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.service.ProfileService;
 import com.ssafy.api.service.UserService;
+import com.ssafy.common.auth.SsafyUserDetails;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.common.util.JwtTokenUtil;
 import com.ssafy.db.entity.User;
@@ -27,6 +29,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponses;
+import springfox.documentation.annotations.ApiIgnore;
 import io.swagger.annotations.ApiResponse;
 
 /**
@@ -154,15 +157,34 @@ public class AuthController {
 	 * 회원삭제	=> profile에서 사용되는 user_status 변경
 	 * 
 	 */
-//	@PutMapping("/delete")
-//	@ApiOperation(value = "회원 탈퇴 처리", notes = "회원의 상태를 탈퇴상태로 변경합니다.") 
-//    @ApiResponses({
-//        @ApiResponse(code = 200, message = "성공"),
-//        @ApiResponse(code = 401, message = "인증 실패"),
-//        @ApiResponse(code = 404, message = "사용자 없음"),
-//        @ApiResponse(code = 500, message = "서버 오류")
-//    })
-//	public ResponseEntity<Boolean> statusChange(@PathVariable String password){
-//		
-//	}
+	@PutMapping("/delete")
+	@ApiOperation(value = "회원 탈퇴 처리", notes = "회원의 상태를 탈퇴상태로 변경합니다.") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "인증 실패"),
+        @ApiResponse(code = 404, message = "사용자 없음"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<Boolean> changeStatus(@ApiIgnore Authentication authentication, @RequestParam String password){
+		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+		String email = userDetails.getEmail();
+		String userPw = userDetails.getPassword();
+		
+//		if(email.equals(password))
+//			return ResponseEntity.ok(userService.changeStatus(email, userPw);)
+//		else
+//			return ResponseEntity.ok(userService.changeStatus(email, userPw);)
+//			
+		return ResponseEntity.ok(true);
+		//내 정보에서 가져온 비밀번호가 인코딩 되어있을 경우
+		/*
+		 * email.equals(passwordEncoder.encode(password))
+		 */
+		
+//		boolean result = userService.checkPw(password);
+//		if(result) {
+//			userService.changeStatus(u)
+//		}
+		//return null;
+	}
 }

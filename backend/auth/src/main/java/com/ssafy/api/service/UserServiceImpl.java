@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 		/*
 		 * userId 암호화 셋팅
 		 */
-		String userId = "p012345678912"; 
+		String userId = ""; 
 		user.setUserId(userId);
 		user.setEmail(userRegisterInfo.getEmail());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
@@ -60,5 +60,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean checkEmail(String email) {
 		return userRepository.existsByEmail(email);
+	}
+
+	@Override
+	public boolean checkPw(String email, String password) {
+		//return userRepository.
+		return true;
+	}
+
+	@Override
+	public boolean changeStatus(String email, String password) {
+		
+		return false;
 	}
 }

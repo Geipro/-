@@ -47,8 +47,12 @@ public class UserController {
 
 	@GetMapping("/inquire")
 	@ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.")
-	@ApiResponses({ @ApiResponse(code = 200, message = "성공"), @ApiResponse(code = 401, message = "인증 실패"),
-			@ApiResponse(code = 404, message = "사용자 없음"), @ApiResponse(code = 500, message = "서버 오류") })
+	@ApiResponses({ 
+		@ApiResponse(code = 200, message = "성공"), 
+		@ApiResponse(code = 401, message = "인증 실패"),
+		@ApiResponse(code = 404, message = "사용자 없음"), 
+		@ApiResponse(code = 500, message = "서버 오류") 
+	})
 	public ResponseEntity<UserRes> getMyInfo(@ApiIgnore Authentication authentication) {
 		/**
 		 * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저
@@ -57,7 +61,9 @@ public class UserController {
 		 */
 		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 		String email = userDetails.getEmail();
+		System.out.println("email = " + email);
 		String nickname = userDetails.getUsername();
+		System.out.println("nickname" + nickname);
 		User user = userService.getUserByEmail(email);
 		Profile profile = profileService.getUserByNickname(nickname);
 		return ResponseEntity.status(200).body(UserRes.of(profile));
