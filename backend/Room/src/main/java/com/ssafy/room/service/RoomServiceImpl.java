@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.room.dto.Game;
 import com.ssafy.room.dto.Room;
+import com.ssafy.room.dto.RoomChange;
 import com.ssafy.room.dto.RoomResult;
 import com.ssafy.room.dto.RoomSortInfo;
 import com.ssafy.room.repository.GameRespository;
 import com.ssafy.room.repository.RoomResultRespository;
+import com.ssafy.room.repository.RoomUserRespository;
 import com.ssafy.room.repository.RoomRespository;
 
 @Service
@@ -29,17 +31,20 @@ public class RoomServiceImpl implements RoomService {
 	
 	@Autowired
 	private GameRespository gameRespository;
+	
+	@Autowired
+	private RoomUserRespository roomUserRespository;
 
 	@Override
 	public List<Room> searchAll(RoomSortInfo sortInfo) {
-		Sort sort;
+		Sort sort	;
 		if(sortInfo.sortKey == "") {
-			sort = sortInfo.order ? Sort.by("room_id").ascending() : Sort.by("room_id").descending();
+			sort = sortInfo.order ? Sort.by("roomId").ascending() : Sort.by("roomId").descending();
 		} else {
 			sort = sortInfo.order ? Sort.by(sortInfo.sortKey).ascending() : Sort.by(sortInfo.sortKey).descending();
 		}
 		if(sortInfo.searchKey == "name") {
-			return roomRespository.findRoomByName(sortInfo.searchWord, sort);
+			return roomRespository.findRoomByRoomTitle(sortInfo.searchWord, sort);
 		}
 		return roomRespository.findAll(sort);
 	}
@@ -53,28 +58,37 @@ public class RoomServiceImpl implements RoomService {
 	public Game insertRoom(Room room) {
 		room.setCreatedat(new Timestamp(System.currentTimeMillis()));
 		roomRespository.save(room);
-		Game game =  gameRespository.findGameByGameTitle(room.getGameType());
+//		Game game =  gameRespository.findGameByGameType(room.getGameType());
 		// game을 어떠한 방식으로 넣어줘야 되는지
-		return gameRespository.findGameByGameTitle(room.getGameType());
+		return gameRespository.findGameByGameType(room.getGameType());
 	}
 
 	@Override
-	public Game updateRoom(Room room) {
+	public Game updateRoom(RoomChange roomChange) {
+		Room room = roomRespository.getById(roomChange.getRoomId());
+		room.roomChanging(roomChange);
 		roomRespository.save(room);
-		return gameRespository.findGameByGameTitle(room.getGameType());
+		return gameRespository.findGameByGameType(room.getGameType());
 	}
 
 	@Override
 	public boolean saveRoom(RoomResult roomResult) {
 		roomResultRespository.save(roomResult);
-		// roomUserRespositoy.save(???)
 		return true;
 	}
 	
 	@Override
 	public Integer random() {
-		List<Room> rooms = roomRespository.findRoomByPlaying(true);
+		List<Room> rooms = roomRespository.findAll();
+		List<RoomResult> roomResult = roomResultRespository.findAll();
 		if(rooms.size() == 0) return -1;
+		// 여기서 빈방을 찾을 때 까지 계속 진행하는 알고리즘 구현
+		// 알고리즘 구현 후에 빈방이 나오면 전송
 		return rooms.get(new Random().nextInt(rooms.size())).getRoomId();
+	}
+	
+	@Override
+	public RoomResult getResult(int room_id) {
+		return roomResultRespository.findRoomResultByRoomId(room_id);
 	}
 }

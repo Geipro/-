@@ -67,4 +67,16 @@ public class Room {
 	public void setCreatedat(Timestamp createdat) {
 		this.createdat = createdat;
 	}
+	
+	public void setRoomStatus(String roomStatus) {
+		this.roomStatus = roomStatus;
+	}
+	
+	public void roomChanging(RoomChange roomChange) {
+		this.gameType = roomChange.getGameType();
+		this.roomTitle = roomChange.getRoomTitle();
+		this.roomOwner = roomChange.getRoomOwner();
+	}
+	
+	
 }
