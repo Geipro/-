@@ -19,6 +19,9 @@ import com.ssafy.db.repository.UserRepositorySupport;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	ProfileRepository profileRepository;
 
 	@Autowired
 	UserRepositorySupport userRepositorySupport;
@@ -32,7 +35,7 @@ public class UserServiceImpl implements UserService {
 		/*
 		 * userId 암호화 셋팅
 		 */
-		String userId = ""; 
+		String userId = "p012345678912"; 
 		user.setUserId(userId);
 		user.setEmail(userRegisterInfo.getEmail());
 		// 보안을 위해서 유저 패스워드 암호화 하여 디비에 저장.
@@ -43,6 +46,7 @@ public class UserServiceImpl implements UserService {
 		profile.setUserId(userId);
 		profile.setNickname(userRegisterInfo.getNickname());
 		profile.setPhoneNum(userRegisterInfo.getPhoneNum());
+		profileRepository.save(profile);
 		return userRepository.save(user);
 	}
 

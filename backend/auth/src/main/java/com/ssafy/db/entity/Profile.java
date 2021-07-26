@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * 유저 모델 정의.
@@ -11,8 +12,9 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
-public class Profile extends BaseEntity{
-	String profileId;
+public class Profile extends BaseEntityForProfile {
+	//String profileId;
+	
     String userId;
     String nickname;
     String phoneNum;

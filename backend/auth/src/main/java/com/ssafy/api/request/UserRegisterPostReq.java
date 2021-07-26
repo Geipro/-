@@ -12,8 +12,10 @@ import lombok.Setter;
 @Setter
 @ApiModel("UserRegisterPostRequest")
 public class UserRegisterPostReq {
-	@ApiModelProperty(name="蜡历 ID", example="ssafy_web")
+	
+	@ApiModelProperty(name="蜡历 ID", example="ssafy_web") 
 	String id;
+	
 	@ApiModelProperty(name="蜡历 Password", example="your_password")
 	String password;
 	@ApiModelProperty(name="蜡历 email", example="your_email")

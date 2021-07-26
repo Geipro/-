@@ -16,17 +16,17 @@ public class EmailConfig {
 	private int port;
 	@Value("${mail.smtp.socketFactory.port}")
 	private int socketPort;
-	@Value("${mail.smtp.auth")
+	@Value("${mail.smtp.auth}")
 	private boolean auth;
 	@Value("${mail.smtp.starttls.enable}")
 	private boolean starttls;
-	@Value("${mail.smtp.starttls.required")
+	@Value("${mail.smtp.starttls.required}")
 	private boolean starttls_required;
-	@Value("${mail.smtp.socketFactory.fallback")
+	@Value("${mail.smtp.socketFactory.fallback}")
 	private boolean fallback;
 	@Value("${AdminMail.id}")
 	private String email;
-	@Value("${AdminMail.password")
+	@Value("${AdminMail.password}")
 	private String password;
 	
 	@Bean

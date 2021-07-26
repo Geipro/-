@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.request.UserLoginPostReq;
@@ -112,7 +113,8 @@ public class AuthController {
         @ApiResponse(code = 404, message = "사용자 없음"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
+	public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
+		System.out.println(email);
 		return ResponseEntity.ok(userService.checkEmail(email));
 	}
 	
@@ -149,7 +151,7 @@ public class AuthController {
 //	}
 	
 	/*	
-	 * 회원삭제	=> proifle에서 사용되는 user_status 변경
+	 * 회원삭제	=> profile에서 사용되는 user_status 변경
 	 * 
 	 */
 //	@PutMapping("/delete")

@@ -16,7 +16,7 @@ public class QProfile extends EntityPathBase<Profile>{
 
     public static final QProfile profile = new QProfile("profile");
 
-    public final QBaseEntity _super = new QBaseEntity(this);
+    public final QBaseEntityForProfile _super = new QBaseEntityForProfile(this);
     
     public final StringPath profileId = createString("profileId");
 

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * 유저 모델 정의.
@@ -15,7 +16,9 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 public class User extends BaseEntity{
+	@Id
     String userId;
+	
     String email;
     String username;
     int userStatus;
@@ -23,4 +26,6 @@ public class User extends BaseEntity{
     @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
+    
+    // 
 }
