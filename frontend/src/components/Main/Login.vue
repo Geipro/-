@@ -55,7 +55,7 @@ import * as VeeValidate from 'vee-validate';
 import ko from 'vee-validate/dist/locale/ko.js'
 
 ko.messages.email = (field) => `${field}은/는 올바른 이메일 형식이어야 합니다.`
-ko.messages.required = (field) => `${field}이/가 필요합니다.`
+ko.messages.required = (field) => `${field}이/가 필요합니다.asdfsdfasdfa`
 
 ko.messages.password = (field) => `${field}는 최소 6글자 여야합니다.`
 
