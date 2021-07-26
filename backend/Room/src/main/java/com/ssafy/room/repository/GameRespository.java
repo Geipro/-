@@ -7,5 +7,5 @@ import com.ssafy.room.dto.Game;
 
 @Repository
 public interface GameRespository extends JpaRepository<Game, Integer> {
-	Game findGameByGameTitle(String game_title);
+	Game findGameByGameType(String game_type);
 }

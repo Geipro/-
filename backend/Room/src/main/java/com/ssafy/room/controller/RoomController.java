@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.room.dto.Game;
 import com.ssafy.room.dto.Room;
+import com.ssafy.room.dto.RoomChange;
 import com.ssafy.room.dto.RoomResult;
 import com.ssafy.room.dto.RoomSortInfo;
 import com.ssafy.room.service.RoomService;
@@ -53,9 +54,9 @@ public class RoomController {
 	}
 	
 	@PutMapping()
-	public ResponseEntity<Game> updateRoom(@RequestBody Room room){
+	public ResponseEntity<Game> updateRoom(@RequestBody RoomChange roomChange){
 		try {
-			return new ResponseEntity<Game>(rService.updateRoom(room), HttpStatus.OK);
+			return new ResponseEntity<Game>(rService.updateRoom(roomChange), HttpStatus.OK);
 		}
 		catch(Exception e) {
 			// "Error" 에러 부분은 종류에 따라 수정
@@ -63,16 +64,24 @@ public class RoomController {
 		}
 	}
 	
-	@GetMapping("/end/{room_id}")
-	public ResponseEntity<Boolean> saveRoom(@RequestBody RoomResult roomResult){
-		try {
-			// 다른 테이블에다가 추가 하고 종료하기
-			
+	@GetMapping("/start/")
+	public ResponseEntity<Boolean> startRoom(@RequestBody RoomResult roomResult){
+		try {			
 			return new ResponseEntity<Boolean>(rService.saveRoom(roomResult), HttpStatus.OK);
 			
 		}
 		catch(Exception e) {
-			// "Error" 에러 부분은 종류에 따라 수정
+			return ResponseEntity.status(404).body(false);
+		}
+	}
+	
+	@GetMapping("/end/")
+	public ResponseEntity<Boolean> saveRoom(@RequestBody RoomResult roomResult){
+		try {			
+			return new ResponseEntity<Boolean>(rService.saveRoom(roomResult), HttpStatus.OK);
+			
+		}
+		catch(Exception e) {
 			return ResponseEntity.status(404).body(false);
 		}
 	}
@@ -82,5 +91,9 @@ public class RoomController {
 		return new ResponseEntity<Integer>(rService.random(), HttpStatus.OK);
 	}
 	
+	@GetMapping("result/{room_id}")
+	public ResponseEntity<RoomResult> roomResult(@PathVariable Integer room_id){
+		return new ResponseEntity<RoomResult>(rService.getResult(room_id), HttpStatus.OK);
+	}
 	
 }

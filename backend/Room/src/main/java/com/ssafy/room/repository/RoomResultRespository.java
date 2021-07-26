@@ -7,5 +7,5 @@ import com.ssafy.room.dto.RoomResult;
 
 @Repository
 public interface RoomResultRespository extends JpaRepository<RoomResult, Integer> {
-	
+	RoomResult findRoomResultByRoomId(int roomid);
 }
