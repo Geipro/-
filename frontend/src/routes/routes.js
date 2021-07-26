@@ -9,11 +9,15 @@ import UserProfile from 'src/pages/UserProfile.vue'
 import Ranking from 'src/pages/Ranking.vue'
 import Settings from 'src/pages/Settings.vue'
 import Icons from 'src/pages/Icons.vue'
-import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
-import Upgrade from 'src/pages/Upgrade.vue'
+import Main from 'src/pages/Main.vue'
 
 const routes = [
+  { path: '/',
+    component: Main,
+  },
+
+
   {
     path: '/',
     component: DashboardLayout,
