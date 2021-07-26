@@ -105,7 +105,7 @@ public class AuthController {
 	 * 이메일 중복 확인
 	 * 
 	 */
-	@GetMapping("/email")
+	@GetMapping("/checkEmail/{email}")
 	@ApiOperation(value = "이메일 중복 확인", notes = "회원가입 중 이메일 중복확인") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
@@ -113,7 +113,7 @@ public class AuthController {
         @ApiResponse(code = 404, message = "사용자 없음"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
+	public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
 		System.out.println(email);
 		return ResponseEntity.ok(userService.checkEmail(email));
 	}
@@ -122,7 +122,7 @@ public class AuthController {
 	 * 유저네임 중복 확인
 	 * 
 	 */
-	@GetMapping("/nickname")
+	@GetMapping("/checkNickname/{nickname}")
 	@ApiOperation(value = "닉네임 중복 확인", notes = "회원가입 중 닉네임 중복확인") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),

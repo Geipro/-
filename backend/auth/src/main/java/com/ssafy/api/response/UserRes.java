@@ -18,10 +18,22 @@ import lombok.Setter;
 public class UserRes{
 	@ApiModelProperty(name="nickname")
 	String nickname;
+	/*
+	 * Ãß°¡
+	 */
+	@ApiModelProperty(name="phoneNum")
+	String phoneNum;
+	@ApiModelProperty(name="aboutMe")
+	String aboutMe;
+	@ApiModelProperty(name="totalpoint")
+	int totalPoint;
 	
 	public static UserRes of(Profile profile) {
 		UserRes res = new UserRes();
 		res.setNickname(profile.getNickname());
+		res.setPhoneNum(profile.getPhoneNum());
+		res.setAboutMe(profile.getAbout_me());
+		res.setTotalPoint(profile.getTotalPoint());
 		return res;
 	}
 }

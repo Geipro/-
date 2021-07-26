@@ -10,9 +10,9 @@ import com.ssafy.api.service.EmailServiceImpl;
 
 import io.swagger.annotations.Api;
 
-@Api(value = "메일 API", tags = {"Email."})
+@Api(value = "메일 API", tags = {"Email"})
 @RestController
-@RequestMapping("api/email")
+@RequestMapping("api/email/send")
 public class EmailController {
 	
 	@Autowired
