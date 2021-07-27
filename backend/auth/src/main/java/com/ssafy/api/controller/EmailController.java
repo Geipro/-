@@ -10,7 +10,7 @@ import com.ssafy.api.service.EmailServiceImpl;
 
 import io.swagger.annotations.Api;
 
-@Api(value = "∏ﬁ¿œ API", tags = {"Email"})
+@Api(value = "Ïù¥Î©îÏùº Ïù∏Ï¶ù API", tags = {"Email"})
 @RestController
 @RequestMapping("api/email/send")
 public class EmailController {
@@ -19,14 +19,14 @@ public class EmailController {
 	EmailService mailService;
 		
 	@ResponseBody
-	public int verifyCode(String code) {
+	public boolean verifyCode(String code) {
 		//logger.info("Post verifyCode");
 		
-		int result = 0;
+		boolean result = false;
 		System.out.println("code : "+code);
 		System.out.println("code match : "+ EmailServiceImpl.ePw.equals(code));
 		if(EmailServiceImpl.ePw.equals(code)) {
-			result =1;
+			result = true;
 		}
 		
 		return result;

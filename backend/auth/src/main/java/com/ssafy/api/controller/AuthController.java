@@ -33,9 +33,9 @@ import springfox.documentation.annotations.ApiIgnore;
 import io.swagger.annotations.ApiResponse;
 
 /**
- * ÀÎÁõ °ü·Ã API ¿äÃ» Ã³¸®¸¦ À§ÇÑ ÄÁÆ®·Ñ·¯ Á¤ÀÇ.
+ * ì¸ì¦ ê´€ë ¨ API ìš”ì²­ ì²˜ë¦¬ë¥¼ ìœ„í•œ ì»¨íŠ¸ë¡¤ëŸ¬ ì •ì˜.
  */
-@Api(value = "ÀÎÁõ API", tags = {"Auth."})
+@Api(value = "ì¸ì¦ API", tags = {"Auth."})
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -49,72 +49,71 @@ public class AuthController {
 	PasswordEncoder passwordEncoder;
 	
 	@PostMapping("/login")
-	@ApiOperation(value = "·Î±×ÀÎ", notes = "<strong>¾ÆÀÌµğ¿Í ÆĞ½º¿öµå</strong>¸¦ ÅëÇØ ·Î±×ÀÎ ÇÑ´Ù.") 
+	@ApiOperation(value = "ë¡œê·¸ì¸", notes = "<strong>ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œ</strong>ë¥¼ í†µí•´ ë¡œê·¸ì¸ í•œë‹¤.")
     @ApiResponses({
-        @ApiResponse(code = 200, message = "¼º°ø", response = UserLoginPostRes.class),
-        @ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ", response = BaseResponseBody.class),
-        @ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½", response = BaseResponseBody.class),
-        @ApiResponse(code = 500, message = "¼­¹ö ¿À·ù", response = BaseResponseBody.class)
+        @ApiResponse(code = 200, message = "ì„±ê³µ", response = UserLoginPostRes.class),
+        @ApiResponse(code = 401, message = "ì¸ì¦ ì‹¤íŒ¨", response = BaseResponseBody.class),
+        @ApiResponse(code = 404, message = "ì‚¬ìš©ì ì—†ìŒ", response = BaseResponseBody.class),
+        @ApiResponse(code = 500, message = "ì„œë²„ ì˜¤ë¥˜", response = BaseResponseBody.class)
     })
-	public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value="·Î±×ÀÎ Á¤º¸", required = true) UserLoginPostReq loginInfo) {
+	public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value="ë¡œê·¸ì¸ ì •ë³´", required = true) UserLoginPostReq loginInfo) {
 		String email = loginInfo.getEmail();
 		String password = loginInfo.getPassword();
 		
-		//ÀÌ¸ŞÀÏ·Î ¼öÁ¤
+		//ì´ë©”ì¼ë¡œ ìˆ˜ì •
 		User user = userService.getUserByEmail(email);
-		// ·Î±×ÀÎ ¿äÃ»ÇÑ À¯Àú·ÎºÎÅÍ ÀÔ·ÂµÈ ÆĞ½º¿öµå ¿Í µğºñ¿¡ ÀúÀåµÈ À¯ÀúÀÇ ¾ÏÈ£È­µÈ ÆĞ½º¿öµå°¡ °°ÀºÁö È®ÀÎ.(À¯È¿ÇÑ ÆĞ½º¿öµåÀÎÁö ¿©ºÎ È®ÀÎ)
+		// ë¡œê·¸ì¸ ìš”ì²­í•œ ìœ ì €ë¡œë¶€í„° ì…ë ¥ëœ íŒ¨ìŠ¤ì›Œë“œ ì™€ ë””ë¹„ì— ì €ì¥ëœ ìœ ì €ì˜ ì•”í˜¸í™”ëœ íŒ¨ìŠ¤ì›Œë“œê°€ ê°™ì€ì§€ í™•ì¸.(ìœ íš¨í•œ íŒ¨ìŠ¤ì›Œë“œì¸ì§€ ì—¬ë¶€ í™•ì¸)
 		if(passwordEncoder.matches(password, user.getPassword())) {
-			// À¯È¿ÇÑ ÆĞ½º¿öµå°¡ ¸Â´Â °æ¿ì, ·Î±×ÀÎ ¼º°øÀ¸·Î ÀÀ´ä.(¾×¼¼½º ÅäÅ«À» Æ÷ÇÔÇÏ¿© ÀÀ´ä°ª Àü´Ş)
+			// ìœ íš¨í•œ íŒ¨ìŠ¤ì›Œë“œê°€ ë§ëŠ” ê²½ìš°, ë¡œê·¸ì¸ ì„±ê³µìœ¼ë¡œ ì‘ë‹µ.(ì•¡ì„¸ìŠ¤ í† í°ì„ í¬í•¨í•˜ì—¬ ì‘ë‹µê°’ ì „ë‹¬)
 			return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(email)));
 		}
-		// À¯È¿ÇÏÁö ¾Ê´Â ÆĞ½º¿öµåÀÎ °æ¿ì, ·Î±×ÀÎ ½ÇÆĞ·Î ÀÀ´ä.
+		// ìœ íš¨í•˜ì§€ ì•ŠëŠ” íŒ¨ìŠ¤ì›Œë“œì¸ ê²½ìš°, ë¡œê·¸ì¸ ì‹¤íŒ¨ë¡œ ì‘ë‹µ.
 		return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));
 	}
 	
 	@PostMapping("/signup")
-	@ApiOperation(value = "È¸¿ø °¡ÀÔ", notes = "<strong>¾ÆÀÌµğ¿Í ÆĞ½º¿öµå</strong>¸¦ ÅëÇØ È¸¿ø°¡ÀÔ ÇÑ´Ù.") 
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "¼º°ø"),
-        @ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ"),
-        @ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½"),
-        @ApiResponse(code = 500, message = "¼­¹ö ¿À·ù")
+	@ApiOperation(value = "íšŒì› ê°€ì…", notes = "<strong>ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œ</strong>ë¥¼ í†µí•´ íšŒì›ê°€ì… í•œë‹¤.") 
+	@ApiResponses({
+        @ApiResponse(code = 200, message = "ì„±ê³µ", response = UserLoginPostRes.class),
+        @ApiResponse(code = 401, message = "ì¸ì¦ ì‹¤íŒ¨", response = BaseResponseBody.class),
+        @ApiResponse(code = 404, message = "ì‚¬ìš©ì ì—†ìŒ", response = BaseResponseBody.class),
+        @ApiResponse(code = 500, message = "ì„œë²„ ì˜¤ë¥˜", response = BaseResponseBody.class)
     })
 	public ResponseEntity<? extends BaseResponseBody> register(
-			@RequestBody @ApiParam(value="È¸¿ø°¡ÀÔ Á¤º¸", required = true) UserRegisterPostReq registerInfo) {
+			@RequestBody @ApiParam(value="íšŒì›ê°€ì… ì •ë³´", required = true) UserRegisterPostReq registerInfo) {
 		
-		//ÀÓÀÇ·Î ¸®ÅÏµÈ User ÀÎ½ºÅÏ½º. ÇöÀç ÄÚµå´Â È¸¿ø °¡ÀÔ ¼º°ø ¿©ºÎ¸¸ ÆÇ´ÜÇÏ±â ¶§¹®¿¡ ±»ÀÌ Insert µÈ À¯Àú Á¤º¸¸¦ ÀÀ´äÇÏÁö ¾ÊÀ½.
+		//ì„ì˜ë¡œ ë¦¬í„´ëœ User ì¸ìŠ¤í„´ìŠ¤. í˜„ì¬ ì½”ë“œëŠ” íšŒì› ê°€ì… ì„±ê³µ ì—¬ë¶€ë§Œ íŒë‹¨í•˜ê¸° ë•Œë¬¸ì— êµ³ì´ Insert ëœ ìœ ì € ì •ë³´ë¥¼ ì‘ë‹µí•˜ì§€ ì•ŠìŒ.
 		User user = userService.createUser(registerInfo);
 		
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
 	/*
-	 * ·Î±×¾Æ¿ô ±¸Çö
+	 * ë¡œê·¸ì•„ì›ƒ
 	 * 
 	 */
 //	@GetMapping("/logout")
-//	@ApiOperation(value = "ÀÌ¸ŞÀÏ Áßº¹ È®ÀÎ", notes = "È¸¿ø°¡ÀÔ Áß ÀÌ¸ŞÀÏ Áßº¹È®ÀÎ") 
-//    @ApiResponses({
-//        @ApiResponse(code = 200, message = "¼º°ø"),
-//        @ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ"),
-//        @ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½"),
-//        @ApiResponse(code = 500, message = "¼­¹ö ¿À·ù")
-//    })
+//	@ApiResponses({
+//    @ApiResponse(code = 200, message = "ì„±ê³µ", response = UserLoginPostRes.class),
+//    @ApiResponse(code = 401, message = "ì¸ì¦ ì‹¤íŒ¨", response = BaseResponseBody.class),
+//    @ApiResponse(code = 404, message = "ì‚¬ìš©ì ì—†ìŒ", response = BaseResponseBody.class),
+//    @ApiResponse(code = 500, message = "ì„œë²„ ì˜¤ë¥˜", response = BaseResponseBody.class)
+//})
 //	public void logout(HttpServletRequest request) {
 //        UserLoginPostRes.of(200, "success", null);
 //    }	
 //	
 	/*
-	 * ÀÌ¸ŞÀÏ Áßº¹ È®ÀÎ
+	 * ì´ë©”ì¼ ì¤‘ë³µ í™•ì¸
 	 * 
 	 */
 	@GetMapping("/checkEmail/{email}")
-	@ApiOperation(value = "ÀÌ¸ŞÀÏ Áßº¹ È®ÀÎ", notes = "È¸¿ø°¡ÀÔ Áß ÀÌ¸ŞÀÏ Áßº¹È®ÀÎ") 
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "¼º°ø"),
-        @ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ"),
-        @ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½"),
-        @ApiResponse(code = 500, message = "¼­¹ö ¿À·ù")
+	@ApiOperation(value = "ì´ë©”ì¼ ì¤‘ë³µ í™•ì¸", notes = "íšŒì›ê°€ì… ì¤‘ ì´ë©”ì¼ ì¤‘ë³µí™•ì¸") 
+	@ApiResponses({
+        @ApiResponse(code = 200, message = "ì„±ê³µ", response = UserLoginPostRes.class),
+        @ApiResponse(code = 401, message = "ì¸ì¦ ì‹¤íŒ¨", response = BaseResponseBody.class),
+        @ApiResponse(code = 404, message = "ì‚¬ìš©ì ì—†ìŒ", response = BaseResponseBody.class),
+        @ApiResponse(code = 500, message = "ì„œë²„ ì˜¤ë¥˜", response = BaseResponseBody.class)
     })
 	public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
 		System.out.println(email);
@@ -122,48 +121,48 @@ public class AuthController {
 	}
 	
 	/*
-	 * À¯Àú³×ÀÓ Áßº¹ È®ÀÎ
+	 * ìœ ì €ë„¤ì„ ì¤‘ë³µ í™•ì¸
 	 * 
 	 */
 	@GetMapping("/checkNickname/{nickname}")
-	@ApiOperation(value = "´Ğ³×ÀÓ Áßº¹ È®ÀÎ", notes = "È¸¿ø°¡ÀÔ Áß ´Ğ³×ÀÓ Áßº¹È®ÀÎ") 
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "¼º°ø"),
-        @ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ"),
-        @ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½"),
-        @ApiResponse(code = 500, message = "¼­¹ö ¿À·ù")
+	@ApiOperation(value = "ë‹‰ë„¤ì„ ì¤‘ë³µ í™•ì¸", notes = "íšŒì›ê°€ì… ì¤‘ ë‹‰ë„¤ì„ ì¤‘ë³µí™•ì¸") 
+	@ApiResponses({
+        @ApiResponse(code = 200, message = "ì„±ê³µ", response = UserLoginPostRes.class),
+        @ApiResponse(code = 401, message = "ì¸ì¦ ì‹¤íŒ¨", response = BaseResponseBody.class),
+        @ApiResponse(code = 404, message = "ì‚¬ìš©ì ì—†ìŒ", response = BaseResponseBody.class),
+        @ApiResponse(code = 500, message = "ì„œë²„ ì˜¤ë¥˜", response = BaseResponseBody.class)
     })
 	public ResponseEntity<Boolean> checkUsername(@PathVariable String nickname) {
 		return ResponseEntity.ok(profileService.checkName(nickname));
 	}
 	
 	/*
-	 * ºñ¹Ğ¹øÈ£ ¼öÁ¤	=> ÀÌ¸ŞÀÏ ÀÎÁõ ÈÄ¿¡.
+	 *ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •	=> ì´ë©”ì¼ ì¸ì¦ í›„ì—.
 	 * 
 	 */
 //	@PutMapping("/password")
-//	@ApiOperation(value = "ºñ¹Ğ¹øÈ£ ¼öÁ¤", notes = "ÇöÀç ºñ¹Ğ¹øÈ£¸¦ ¼öÁ¤ÇÕ´Ï´Ù.") 
-//    @ApiResponses({
-//        @ApiResponse(code = 200, message = "¼º°ø"),
-//        @ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ"),
-//        @ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½"),
-//        @ApiResponse(code = 500, message = "¼­¹ö ¿À·ù")
+//	@ApiOperation(value = "ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •", notes = "í˜„ì¬ ë¹„ë°€ë²ˆí˜¸ë¥¼ ìˆ˜ì •í•©ë‹ˆë‹¤.") 
+//	@ApiResponses({
+//        @ApiResponse(code = 200, message = "ì„±ê³µ", response = UserLoginPostRes.class),
+//        @ApiResponse(code = 401, message = "ì¸ì¦ ì‹¤íŒ¨", response = BaseResponseBody.class),
+//        @ApiResponse(code = 404, message = "ì‚¬ìš©ì ì—†ìŒ", response = BaseResponseBody.class),
+//        @ApiResponse(code = 500, message = "ì„œë²„ ì˜¤ë¥˜", response = BaseResponseBody.class)
 //    })
 //	public ResponseEntity<Boolean> modifyPassword(@PathVariable String newPassword){
 //		User user = userService.getU
 //	}
 	
 	/*	
-	 * È¸¿ø»èÁ¦	=> profile¿¡¼­ »ç¿ëµÇ´Â user_status º¯°æ
+	 *íšŒì›ì‚­ì œ	=> profileì—ì„œ ì‚¬ìš©ë˜ëŠ” user_status ë³€ê²½
 	 * 
 	 */
 	@PutMapping("/delete")
-	@ApiOperation(value = "È¸¿ø Å»Åğ Ã³¸®", notes = "È¸¿øÀÇ »óÅÂ¸¦ Å»Åğ»óÅÂ·Î º¯°æÇÕ´Ï´Ù.") 
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "¼º°ø"),
-        @ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ"),
-        @ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½"),
-        @ApiResponse(code = 500, message = "¼­¹ö ¿À·ù")
+	@ApiOperation(value = "íšŒì› íƒˆí‡´ ì²˜ë¦¬", notes = "íšŒì›ì˜ ìƒíƒœë¥¼ íƒˆí‡´ìƒíƒœë¡œ ë³€ê²½í•©ë‹ˆë‹¤.") 
+	@ApiResponses({
+        @ApiResponse(code = 200, message = "ì„±ê³µ", response = UserLoginPostRes.class),
+        @ApiResponse(code = 401, message = "ì¸ì¦ ì‹¤íŒ¨", response = BaseResponseBody.class),
+        @ApiResponse(code = 404, message = "ì‚¬ìš©ì ì—†ìŒ", response = BaseResponseBody.class),
+        @ApiResponse(code = 500, message = "ì„œë²„ ì˜¤ë¥˜", response = BaseResponseBody.class)
     })
 	public ResponseEntity<Boolean> changeStatus(@ApiIgnore Authentication authentication, @RequestParam String password){
 		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
@@ -176,7 +175,7 @@ public class AuthController {
 //			return ResponseEntity.ok(userService.changeStatus(email, userPw);)
 //			
 		return ResponseEntity.ok(true);
-		//³» Á¤º¸¿¡¼­ °¡Á®¿Â ºñ¹Ğ¹øÈ£°¡ ÀÎÄÚµù µÇ¾îÀÖÀ» °æ¿ì
+		//ë‚´ ì •ë³´ì—ì„œ ê°€ì ¸ì˜¨ ë¹„ë°€ë²ˆí˜¸ê°€ ì¸ì½”ë”© ë˜ì–´ìˆì„ ê²½ìš°
 		/*
 		 * email.equals(passwordEncoder.encode(password))
 		 */

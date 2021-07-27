@@ -32,7 +32,7 @@ import com.ssafy.common.util.ResponseBodyWriteUtil;
 import com.ssafy.db.entity.User;
 
 /**
- * ¿äÃ» Çì´õ¿¡ jwt ÅäÅ«ÀÌ ÀÖ´Â °æ¿ì, ÅäÅ« °ËÁõ ¹× ÀÎÁõ Ã³¸® ·ÎÁ÷ Á¤ÀÇ.
+ * ìš”ì²­ í—¤ë”ì— jwt í† í°ì´ ìˆëŠ” ê²½ìš°, í† í° ê²€ì¦ ë° ì¸ì¦ ì²˜ë¦¬ ë¡œì§ ì •ì˜.
  */
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 	private UserService userService;
@@ -57,7 +57,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         try {
             // If header is present, try grab user principal from database and perform authorization
             Authentication authentication = getAuthentication(request);
-            // jwt ÅäÅ«À¸·Î ºÎÅÍ È¹µæÇÑ ÀÎÁõ Á¤º¸(authentication) ¼³Á¤.
+         // jwt í† í°ìœ¼ë¡œ ë¶€í„° íšë“í•œ ì¸ì¦ ì •ë³´(authentication) ì„¤ì •.
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (Exception ex) {
             ResponseBodyWriteUtil.sendError(request, response, ex);
@@ -70,7 +70,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 	@Transactional(readOnly = true)
     public Authentication getAuthentication(HttpServletRequest request) throws Exception {
         String token = request.getHeader(JwtTokenUtil.HEADER_STRING);
-        // ¿äÃ» Çì´õ¿¡ Authorization Å°°ª¿¡ jwt ÅäÅ«ÀÌ Æ÷ÇÔµÈ °æ¿ì¿¡¸¸, ÅäÅ« °ËÁõ ¹× ÀÎÁõ Ã³¸® ·ÎÁ÷ ½ÇÇà.
+     // ìš”ì²­ í—¤ë”ì— Authorization í‚¤ê°’ì— jwt í† í°ì´ í¬í•¨ëœ ê²½ìš°ì—ë§Œ, í† í° ê²€ì¦ ë° ì¸ì¦ ì²˜ë¦¬ ë¡œì§ ì‹¤í–‰.
         if (token != null) {
             // parse the token and validate it (decode)
             JWTVerifier verifier = JwtTokenUtil.getVerifier();
@@ -81,10 +81,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             // Search in the DB if we find the user by token subject (username)
             // If so, then grab user details and create spring auth token using username, pass, authorities/roles
             if (email != null) {
-                    // jwt ÅäÅ«¿¡ Æ÷ÇÔµÈ °èÁ¤ Á¤º¸(userId) ÅëÇØ ½ÇÁ¦ µğºñ¿¡ ÇØ´ç Á¤º¸ÀÇ °èÁ¤ÀÌ ÀÖ´ÂÁö Á¶È¸.
+            	// jwt í† í°ì— í¬í•¨ëœ ê³„ì • ì •ë³´(userId) í†µí•´ ì‹¤ì œ ë””ë¹„ì— í•´ë‹¹ ì •ë³´ì˜ ê³„ì •ì´ ìˆëŠ”ì§€ ì¡°íšŒ.
             		User user = userService.getUserByEmail(email);
                 if(user != null) {
-                        // ½Äº°µÈ Á¤»ó À¯ÀúÀÎ °æ¿ì, ¿äÃ» context ³»¿¡¼­ ÂüÁ¶ °¡´ÉÇÑ ÀÎÁõ Á¤º¸(jwtAuthentication) »ı¼º.
+                	// ì‹ë³„ëœ ì •ìƒ ìœ ì €ì¸ ê²½ìš°, ìš”ì²­ context ë‚´ì—ì„œ ì°¸ì¡° ê°€ëŠ¥í•œ ì¸ì¦ ì •ë³´(jwtAuthentication) ìƒì„±.
                 		SsafyUserDetails userDetails = new SsafyUserDetails(user);
                 		UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(email,
                 				null, userDetails.getAuthorities());

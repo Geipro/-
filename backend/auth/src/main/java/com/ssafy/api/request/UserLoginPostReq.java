@@ -6,14 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * À¯Àú ·Î±×ÀÎ API ([POST] /api/auth/login) ¿äÃ»¿¡ ÇÊ¿äÇÑ ¸®Äù½ºÆ® ¹Ùµğ Á¤ÀÇ.
+ * ìœ ì € ë¡œê·¸ì¸ API ([POST] /api/auth/login) ìš”ì²­ì— í•„ìš”í•œ ë¦¬í€˜ìŠ¤íŠ¸ ë°”ë”” ì •ì˜.
  */
 @Getter
 @Setter
 @ApiModel("UserLoginPostRequest")
 public class UserLoginPostReq {
-	@ApiModelProperty(name="À¯Àú email", example="ssafy_web")
+	@ApiModelProperty(name="ìœ ì € email", example="ssafy_web")
 	String email;
-	@ApiModelProperty(name="À¯Àú Password", example="your_password")
+	@ApiModelProperty(name="ìœ ì € Password", example="your_password")
 	String password;
 }

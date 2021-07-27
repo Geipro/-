@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
- * ¸ğµ¨ °£ °øÅë »çÇ× Á¤ÀÇ.
+ * Profile ê¸°ë°˜ Entity
  */
 @Getter
 @Setter
