@@ -64,10 +64,10 @@ public class RoomController {
 		}
 	}
 	
-	@GetMapping("/start/")
-	public ResponseEntity<Boolean> startRoom(@RequestBody RoomResult roomResult){
+	@PostMapping("/start/{room_id}")
+	public ResponseEntity<Boolean> startRoom(@PathVariable int room_id){
 		try {			
-			return new ResponseEntity<Boolean>(rService.saveRoom(roomResult), HttpStatus.OK);
+			return new ResponseEntity<Boolean>(rService.startRoom(room_id), HttpStatus.OK);
 			
 		}
 		catch(Exception e) {
@@ -75,9 +75,11 @@ public class RoomController {
 		}
 	}
 	
-	@GetMapping("/end/")
+	@PostMapping("/end")
 	public ResponseEntity<Boolean> saveRoom(@RequestBody RoomResult roomResult){
 		try {			
+			// 플레이어 마다의 점수를 각각 입력 받아서 들어와야 한다.
+			// FE에서 전송방식을 합의하고 게임 결과 Redis가 어떻게 돌아가는지에 따라 결정이 되므로 확인을 해야한다.
 			return new ResponseEntity<Boolean>(rService.saveRoom(roomResult), HttpStatus.OK);
 			
 		}
