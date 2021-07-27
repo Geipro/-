@@ -21,6 +21,12 @@ public class ProfileServiceImpl implements ProfileService {
 		Profile profile = profileRepositorySupport.findUserByNickname(nickname).get();
 		return profile;
 	}
+	
+	@Override
+	public Profile getUserByUserId(String userId) {
+		Profile profile = profileRepositorySupport.findUserByUserId(userId).get();
+		return profile;
+	}
 
 	@Override
 	public boolean checkName(String nickname) {
