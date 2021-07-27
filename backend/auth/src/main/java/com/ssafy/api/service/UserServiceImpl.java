@@ -1,5 +1,7 @@
 package com.ssafy.api.service;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserRepositorySupport;
 
 /**
- *	À¯Àú °ü·Ã ºñÁî´Ï½º ·ÎÁ÷ Ã³¸®¸¦ À§ÇÑ ¼­ºñ½º ±¸Çö Á¤ÀÇ.
+ *	ìœ ì € ê´€ë ¨ ë¹„ì¦ˆë‹ˆìŠ¤ ë¡œì§ ì²˜ë¦¬ë¥¼ ìœ„í•œ ì„œë¹„ìŠ¤ êµ¬í˜„ ì •ì˜.
  */
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -31,14 +33,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
-		User user = new User();
+		User user = new User();		
 		/*
-		 * userId ¾ÏÈ£È­ ¼ÂÆÃ
-		 */
-		String userId = ""; 
+		 * userId ì•”í˜¸í™” ì…‹íŒ…
+		 */		
+		String userId = makeUserId();
+
+		while(userRepository.existsByUserId(userId)) {
+			userId = makeUserId();
+		}
+		
 		user.setUserId(userId);
 		user.setEmail(userRegisterInfo.getEmail());
-		// º¸¾ÈÀ» À§ÇØ¼­ À¯Àú ÆĞ½º¿öµå ¾ÏÈ£È­ ÇÏ¿© µğºñ¿¡ ÀúÀå.
+		// ë³´ì•ˆì„ ìœ„í•´ì„œ ìœ ì € íŒ¨ìŠ¤ì›Œë“œ ì•”í˜¸í™” í•˜ì—¬ ë””ë¹„ì— ì €ì¥.
 		user.setPassword(passwordEncoder.encode(userRegisterInfo.getPassword()));
 		user.setUsername(userRegisterInfo.getUsername());
 		
@@ -52,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUserByEmail(String email) {
-		// µğºñ¿¡ À¯Àú Á¤º¸ Á¶È¸ (userId ¸¦ ÅëÇÑ Á¶È¸).
+		// ë””ë¹„ì— ìœ ì € ì •ë³´ ì¡°íšŒ (userId ë¥¼ í†µí•œ ì¡°íšŒ).
 		User user = userRepositorySupport.findUserByEmail(email).get();
 		return user;
 	}
@@ -63,14 +70,43 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkPw(String email, String password) {
-		//return userRepository.
+	public boolean changePw(String email, String password) {
+		User user = userRepositorySupport.findUserByEmail(email).get();
+		user.setPassword(passwordEncoder.encode(password));
+		userRepository.save(user);
 		return true;
 	}
 
 	@Override
 	public boolean changeStatus(String email, String password) {
-		
-		return false;
+		User user = userRepositorySupport.findUserByEmail(email).get();
+		user.setUserStatus(1);
+		userRepository.save(user);
+		return true;
+	}
+	
+	private String makeUserId() {
+		StringBuffer key = new StringBuffer();
+		Random rnd = new Random();
+		key.append("p");
+		for(int i = 0; i < 12; i++) {
+			//0~2 ìˆ«ì ì„ íƒ
+			int index = rnd.nextInt(3);
+			switch(index) {
+				case 0:
+					//a ~ z (1+ 97 = 98. => (char)98 = 'b'
+					key.append((char) ((int)(rnd.nextInt(26)) + 97));
+					break;
+				case 1:
+					//ëŒ€ë¬¸ì A ~ Z
+					key.append((char) ((int)(rnd.nextInt(26)) + 65));
+					break;
+				case 2:
+					//0 ~ 9
+					key.append((rnd.nextInt(10)));
+					break;
+			}
+		}
+		return key.toString();
 	}
 }

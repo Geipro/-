@@ -7,14 +7,15 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 /**
- * À¯Àú ¸ğµ¨ °ü·Ã µğºñ Äõ¸® »ı¼ºÀ» À§ÇÑ JPA Query Method ÀÎÅÍÆäÀÌ½º Á¤ÀÇ.
+ * ìœ ì € ëª¨ë¸ ê´€ë ¨ ë””ë¹„ ì¿¼ë¦¬ ìƒì„±ì„ ìœ„í•œ JPA Query Method ì¸í„°í˜ì´ìŠ¤ ì •ì˜.
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    // ¾Æ·¡¿Í °°ÀÌ, Query Method ÀÎÅÍÆäÀÌ½º(¹İÈ¯°ª, ¸Ş¼Òµå¸í, ÀÎÀÚ) Á¤ÀÇ¸¦ ÇÏ¸é ÀÚµ¿À¸·Î Query Method ±¸ÇöµÊ.
+    // ì•„ë˜ì™€ ê°™ì´, Query Method ì¸í„°í˜ì´ìŠ¤(ë°˜í™˜ê°’, ë©”ì†Œë“œëª…, ì¸ì) ì •ì˜ë¥¼ í•˜ë©´ ìë™ìœ¼ë¡œ Query Method êµ¬í˜„ë¨.
     //Optional<User> findByUserId(String userId);
     Optional<User> findByEmail(String email);
 
     boolean existsByEmail(String email);
+    boolean existsByUserId(String userId);
     //boolean existsByUsername(String username);
 }

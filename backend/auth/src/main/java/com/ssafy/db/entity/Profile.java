@@ -3,11 +3,14 @@ package com.ssafy.db.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.checkerframework.common.aliasing.qual.Unique;
+
 /**
- * 유저 모델 정의.
+ * Profile DB
  */
 @Entity
 @Getter
@@ -16,7 +19,10 @@ public class Profile extends BaseEntityForProfile {
 	//String profileId;
 	
     String userId;
+    
+    @Column(name="nickname", unique=true)
     String nickname;
+    
     String phoneNum;
     String about_me;
     

@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * ÀÎÁõ(authentication) ¿Í ÀÎ°¡(authorization) Ã³¸®¸¦ À§ÇÑ ½ºÇÁ¸µ ½ÃÅ¥¸®Æ¼ ¼³Á¤ Á¤ÀÇ.
+ * ì¸ì¦(authentication) ì™€ ì¸ê°€(authorization) ì²˜ë¦¬ë¥¼ ìœ„í•œ ìŠ¤í”„ë§ ì‹œíë¦¬í‹° ì„¤ì • ì •ì˜.
  */
 @Configuration
 @EnableWebSecurity
@@ -29,14 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
     
-    // Password ÀÎÄÚµù ¹æ½Ä¿¡ BCrypt ¾ÏÈ£È­ ¹æ½Ä »ç¿ë
+    // Password ì¸ì½”ë”© ë°©ì‹ì— BCrypt ì•”í˜¸í™” ë°©ì‹ ì‚¬ìš©
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // DAO ±â¹İÀ¸·Î Authentication Provider¸¦ »ı¼º
-    // BCrypt Password Encoder¿Í UserDetailService ±¸ÇöÃ¼¸¦ ¼³Á¤
+    // DAO ê¸°ë°˜ìœ¼ë¡œ Authentication Providerë¥¼ ìƒì„±
+    // BCrypt Password Encoderì™€ UserDetailService êµ¬í˜„ì²´ë¥¼ ì„¤ì •
     @Bean
     DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return daoAuthenticationProvider;
     }
 
-    // DAO ±â¹İÀÇ Authentication Provider°¡ Àû¿ëµÇµµ·Ï ¼³Á¤
+ // DAO ê¸°ë°˜ì˜ Authentication Providerê°€ ì ìš©ë˜ë„ë¡ ì„¤ì •
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
@@ -56,11 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().disable()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // ÅäÅ« ±â¹İ ÀÎÁõÀÌ¹Ç·Î ¼¼¼Ç »ç¿ë ÇÏÁö¾ÊÀ½
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // í† í° ê¸°ë°˜ ì¸ì¦ì´ë¯€ë¡œ ì„¸ì…˜ ì‚¬ìš© í•˜ì§€ì•ŠìŒ
                 .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService)) //HTTP ¿äÃ»¿¡ JWT ÅäÅ« ÀÎÁõ ÇÊÅÍ¸¦ °ÅÄ¡µµ·Ï ÇÊÅÍ¸¦ Ãß°¡
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userService)) //HTTP ìš”ì²­ì— JWT í† í° ì¸ì¦ í•„í„°ë¥¼ ê±°ì¹˜ë„ë¡ í•„í„°ë¥¼ ì¶”ê°€
                 .authorizeRequests()
-                .antMatchers("/api/v1/users/me").authenticated()       //ÀÎÁõÀÌ ÇÊ¿äÇÑ URL°ú ÇÊ¿äÇÏÁö ¾ÊÀº URL¿¡ ´ëÇÏ¿© ¼³Á¤
+                .antMatchers("/api/v1/users/me").authenticated()   //ì¸ì¦ì´ í•„ìš”í•œ URLê³¼ í•„ìš”í•˜ì§€ ì•Šì€ URLì— ëŒ€í•˜ì—¬ ì„¤ì •
     	        	    .anyRequest().permitAll()
                 .and().cors();
     }

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.ssafy.db.entity.Profile;
 
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
-    // ¾Æ·¡¿Í °°ÀÌ, Query Method ÀÎÅÍÆäÀÌ½º(¹İÈ¯°ª, ¸Ş¼Òµå¸í, ÀÎÀÚ) Á¤ÀÇ¸¦ ÇÏ¸é ÀÚµ¿À¸·Î Query Method ±¸ÇöµÊ.
+    // ì•„ë˜ì™€ ê°™ì´, Query Method ì¸í„°í˜ì´ìŠ¤(ë°˜í™˜ê°’, ë©”ì†Œë“œëª…, ì¸ì) ì •ì˜ë¥¼ í•˜ë©´ ìë™ìœ¼ë¡œ Query Method êµ¬í˜„ë¨.
     Optional<Profile> findByNickname(String nickname);
 
     boolean existsByNickname(String nickname);
