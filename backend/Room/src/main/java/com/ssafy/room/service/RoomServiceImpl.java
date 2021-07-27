@@ -22,28 +22,28 @@ import com.ssafy.room.repository.RoomRespository;
 
 @Service
 public class RoomServiceImpl implements RoomService {
-	
+
 	@Autowired
 	private RoomRespository roomRespository;
-	
+
 	@Autowired
 	private RoomResultRespository roomResultRespository;
-	
+
 	@Autowired
 	private GameRespository gameRespository;
-	
+
 	@Autowired
 	private RoomUserRespository roomUserRespository;
 
 	@Override
 	public List<Room> searchAll(RoomSortInfo sortInfo) {
-		Sort sort	;
-		if(sortInfo.sortKey == "") {
+		Sort sort;
+		if (sortInfo.sortKey == "") {
 			sort = sortInfo.order ? Sort.by("roomId").ascending() : Sort.by("roomId").descending();
 		} else {
 			sort = sortInfo.order ? Sort.by(sortInfo.sortKey).ascending() : Sort.by(sortInfo.sortKey).descending();
 		}
-		if(sortInfo.searchKey == "name") {
+		if (sortInfo.searchKey == "name") {
 			return roomRespository.findRoomByRoomTitle(sortInfo.searchWord, sort);
 		}
 		return roomRespository.findAll(sort);
@@ -72,21 +72,39 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
+	public boolean startRoom(int room_id) {
+		Room room = roomRespository.getById(room_id);
+		if (room.getRoomStatus() != "1")
+			return false;
+
+		room.setRoomStatus("2");
+		roomRespository.save(room);
+		return true;
+	}
+
+	@Override
 	public boolean saveRoom(RoomResult roomResult) {
+		Room room = roomRespository.findRoomByRoomId(roomResult.getRoomId());
+		room.setRoomStatus("3");
+		roomRespository.save(room);
+
+		// 결과 데이터를 어떻게 가져올 것인지 이 부분에 대해서는 더 자세하게 결정하기
+		
+		// roomUserResponsitory에 데이터를 넣기 위해서 모든 User의 값들을 전부 가져오기
+
 		roomResultRespository.save(roomResult);
 		return true;
 	}
-	
+
 	@Override
 	public Integer random() {
-		List<Room> rooms = roomRespository.findAll();
-		List<RoomResult> roomResult = roomResultRespository.findAll();
-		if(rooms.size() == 0) return -1;
-		// 여기서 빈방을 찾을 때 까지 계속 진행하는 알고리즘 구현
-		// 알고리즘 구현 후에 빈방이 나오면 전송
+		List<Room> rooms = roomRespository.findRoomByRoomStatus("1");
+		if (rooms.size() == 0)
+			return -1;
+
 		return rooms.get(new Random().nextInt(rooms.size())).getRoomId();
 	}
-	
+
 	@Override
 	public RoomResult getResult(int room_id) {
 		return roomResultRespository.findRoomResultByRoomId(room_id);

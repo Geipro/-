@@ -17,6 +17,7 @@ public interface RoomService {
 	public Optional<Room> searchRoom(int room_id);
 	public Game insertRoom(Room room);
 	public Game updateRoom(RoomChange room);
+	public boolean startRoom(int room);
 	public boolean saveRoom(RoomResult roomResult);
 	public Integer random();
 	public RoomResult getResult(int room_id);
