@@ -32,6 +32,11 @@
           <span class="error" v-if="errors.has('email')">{{errors.first('email')}}</span>
         </div>
         <div class="form-group">
+          <label for="exampleInputEmail1">전화번호</label> 
+          <input type="tel" name="phone" v-validate="'digits:11'" v-model="credential.phoneNumber" data-vv-as="PhoneNumber"
+          class="form-control" :class="{error: errors.has('phone')}" id="phone" aria-describedby="phoneHelp" placeholder="01012345678">
+        </div>
+        <div class="form-group">
           <label for="">Password</label>
           <input type="password" ref="password" name="password" v-validate="'required|min:6'" v-model="credential.password" data-vv-as="Password"
           class="form-control" :class="{error: errors.has('password')}"  id="password" aria-describedby="password" placeholder="Enter Password">
@@ -79,6 +84,8 @@ ko.messages.email = (field) => `${field}은/는 올바른 이메일 형식이어
 ko.messages.required = (field) => `${field}이/가 필요합니다.`
 
 ko.messages.password = (field) => `${field}는 최소 6글자 여야합니다.`
+ko.messages.passwordConfirmation = (field) => `${field}는 최소 6글자 여야합니다.`
+
 
 const config = {
   locale: 'ko',
@@ -98,6 +105,7 @@ export default {
         username: null,
         nickname: null,
         email: null,
+        phoneNumber: null,
         password: null,
         passwordConfirmation: null,
       },
