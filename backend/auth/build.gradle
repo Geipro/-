@@ -17,9 +17,9 @@ buildscript{
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVer}"
         classpath "io.spring.gradle:dependency-management-plugin:${springDependencyMgmtVer}.RELEASE"
         classpath "org.springframework:springloaded:${springLoadedVer}.RELEASE"
-        //ÀÌÅ¬¸³½ºÀÎ °æ¿ì¸¦ À§ÇÑ QueryDSL ÇÃ·¯±×ÀÎ. IntelliJ´Â ºÒÇÊ¿ä. [½ÃÀÛ]
+		//ì´í´ë¦½ìŠ¤ì¸ ê²½ìš°ë¥¼ ìœ„í•œ QueryDSL í”ŒëŸ¬ê·¸ì¸. IntelliJëŠ” ë¶ˆí•„ìš”. [ì‹œì‘]
         classpath "gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVer}"
-        //[³¡] 
+        //[ë]  
         classpath "com.github.node-gradle:gradle-node-plugin:3.1.0"
     }
 }
@@ -34,7 +34,7 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'eclipse'
 apply plugin: 'com.github.node-gradle.node'
-//ÀÌÅ¬¸³½ºÀÎ °æ¿ì¸¦ À§ÇÑ QueryDSL ÇÃ·¯±×ÀÎ. IntelliJ´Â ºÒÇÊ¿ä.
+//ì´í´ë¦½ìŠ¤ì¸ ê²½ìš°ë¥¼ ìœ„í•œ QueryDSL í”ŒëŸ¬ê·¸ì¸. IntelliJëŠ” ë¶ˆí•„ìš”.
 apply plugin: 'com.ewerk.gradle.plugins.querydsl'
 
 repositories {
@@ -98,7 +98,7 @@ processResources {
     }
 }
 
-//ÀÌÅ¬¸³½ºÀÎ °æ¿ì¸¦ À§ÇÑ QueryDSL ¼³Á¤. IntelliJ´Â ºÒÇÊ¿ä. [½ÃÀÛ]
+//ì´í´ë¦½ìŠ¤ì¸ ê²½ìš°ë¥¼ ìœ„í•œ QueryDSL ì„¤ì •. IntelliJëŠ” ë¶ˆí•„ìš”. [ì‹œì‘]
 def querydslDir = 'src/main/generated'
 querydsl {
     library = "com.querydsl:querydsl-apt"
@@ -121,7 +121,7 @@ compileQuerydsl {
 configurations {
     querydsl.extendsFrom compileClasspath
 }
-//[³¡]
+//[ë]
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
@@ -145,23 +145,19 @@ dependencies {
     implementation("com.querydsl:querydsl-jpa:${querydslVer}")
     implementation("com.querydsl:querydsl-apt:${querydslVer}")
 
-    //STOMP À¥¼ÒÄ¹ ¼­¹ö »çÀÌµå Å×½ºÆ®¸¦ À§ÇÑ ÀÇÁ¸¼º Ãß°¡
+    //STOMP ì›¹ì†Œìº£ ì„œë²„ ì‚¬ì´ë“œ í…ŒìŠ¤íŠ¸ë¥¼ ìœ„í•œ ì˜ì¡´ì„± ì¶”ê°€
     implementation("org.springframework.boot:spring-boot-starter-mustache")
-    //STOMP °ü·Ã ÇÁ·ĞÆ® ¶óÀÌºê·¯¸®
+    //STOMP ê´€ë ¨ í”„ë¡ íŠ¸ ë¼ì´ë¸ŒëŸ¬ë¦¬
     implementation('org.webjars.bower:jquery:3.3.1')
     implementation('org.webjars:sockjs-client:1.1.2')
     implementation('org.webjars:stomp-websocket:2.3.3-1')
     implementation('org.webjars:webjars-locator:0.30')
-    //WebRTC Å¬¶óÀÌ¾ğÆ® ÀÇÁ¸¼º Ãß°¡
+    //WebRTC í´ë¼ì´ì–¸íŠ¸ ì˜ì¡´ì„± ì¶”ê°€
     implementation('org.webjars.bower:webrtc-adapter:7.4.0')
-    //Kurento (¹Ìµğ¾î¼­¹ö) °ü·Ã ÀÇÁ¸¼º Ãß°¡
+    //Kurento (ë¯¸ë””ì–´ì„œë²„) ê´€ë ¨ ì˜ì¡´ì„± ì¶”ê°€
     implementation('org.kurento:kurento-client:6.16.0')
     implementation('org.kurento:kurento-utils-js:6.15.0')
     
-    //IntelliJ¿ë
-    //IntelliJ¿¡¼­´Â ÇÏ±â annotationProcessor¸¦ ¾²¸é º°µµÀÇ querydsl ÇÃ·¯±×ÀÎ ¹× ÇÃ·¯±×ÀÎ ¼³Á¤ÀÌ ºÒÇÊ¿ä.
-    //annotationProcessor("com.querydsl:querydsl-apt:${querydslVer}:jpa")
-
     implementation("com.squareup.retrofit2:retrofit:2.7.1")
     implementation("com.squareup.retrofit2:converter-jackson:2.7.1")
     implementation("com.squareup.okhttp3:logging-interceptor:3.9.0")

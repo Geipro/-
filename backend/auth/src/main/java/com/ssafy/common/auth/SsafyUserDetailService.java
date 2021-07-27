@@ -14,7 +14,7 @@ import com.ssafy.db.repository.UserRepository;
 
 
 /**
- * ÇöÀç ¾×¼¼½º ÅäÅ«À¸·Î ºÎÅÍ ÀÎÁõµÈ À¯ÀúÀÇ »ó¼¼Á¤º¸(È°¼ºÈ­ ¿©ºÎ, ¸¸·á, ·Ñ µî) °ü·Ã ¼­ºñ½º Á¤ÀÇ.
+ * í˜„ì¬ ì•¡ì„¸ìŠ¤ í† í°ìœ¼ë¡œ ë¶€í„° ì¸ì¦ëœ ìœ ì €ì˜ ìƒì„¸ì •ë³´(í™œì„±í™” ì—¬ë¶€, ë§Œë£Œ, ë¡¤ ë“±) ê´€ë ¨ ì„œë¹„ìŠ¤ ì •ì˜.
  */
 @Component
 public class SsafyUserDetailService implements UserDetailsService{

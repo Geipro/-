@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * È¸¿ø Á¤º¸ Á¶È¸ API ([GET] /api/profile/{nickname}) ¿äÃ»¿¡ ´ëÇÑ ÀÀ´ä°ª Á¤ÀÇ.
+ * íšŒì› ì •ë³´ ì¡°íšŒ API ([GET] /api/profile/{nickname}) ìš”ì²­ì— ëŒ€í•œ ì‘ë‹µê°’ ì •ì˜.
  */
 @Getter
 @Setter
@@ -19,7 +19,7 @@ public class UserRes{
 	@ApiModelProperty(name="nickname")
 	String nickname;
 	/*
-	 * Ãß°¡
+	 * ì¶”ê°€
 	 */
 	@ApiModelProperty(name="phoneNum")
 	String phoneNum;

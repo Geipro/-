@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * 유저 모델 정의.
+ * Profile DB
  */
 @Entity
 @Getter

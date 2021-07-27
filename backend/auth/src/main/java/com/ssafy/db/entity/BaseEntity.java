@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
- * ¸ğµ¨ °£ °øÅë »çÇ× Á¤ÀÇ.
+ * User ê¸°ë°˜ Entity
  */
 @Getter
 @Setter
