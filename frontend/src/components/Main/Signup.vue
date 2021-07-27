@@ -1,7 +1,7 @@
 <template>
   <!-- signup box start -->
   <div id="second">
-    <div class="myform form ">
+    <div class="myform form">
       <div class="logo mb-3">
         <div class="col-md-12 text-center">
           <h1>Signup</h1>
@@ -18,14 +18,38 @@
         </div>
         <div class="form-group">
           <div class="d-flex justify-content-between">
-            <label for="exampleInputEmail1">닉네임</label> <button id="nicknameCheck" @click="nicknameDuplicateCheck" class="border-0 bg-transparent text-primary" v-bind="{ 'disabled' : duplicate.nicknameCheck }">닉네임 중복확인</button>
+            <label for="exampleInputEmail1">닉네임</label> 
+            <button id="nicknameCheck" 
+              v-if="!duplicate.nicknameCheck" 
+              @click="nicknameDuplicateCheck" 
+              class="border-0 bg-transparent text-primary" 
+              v-bind="{ 'disabled' : duplicate.nicknameCheck }">
+              닉네임 중복확인
+            </button>
+            <button id="nicknameCheck"
+              v-if="duplicate.nicknameCheck"
+              class="border-0 bg-transparent text-success" disabled>
+              중복확인 완료
+            </button>
           </div>
           <input type="text"  name="nickname" v-model="credential.nickname"
           class="form-control" id="nickname" aria-describedby="nicknameHelp" placeholder="Enter Nickname">
         </div>
         <div class="form-group">
           <div class="d-flex justify-content-between">
-            <label for="exampleInputEmail1">이메일</label> <button id="usernameCheck" @click="emailDuplicateCheck" class="border-0 bg-transparent text-primary" v-bind="{ 'disabled' : duplicate.emailCheck }">이메일 중복확인</button>
+            <label for="exampleInputEmail1">이메일</label>
+            <button id="emailCheck" 
+              v-if="!duplicate.emailCheck" 
+              @click="emailDuplicateCheck" 
+              class="border-0 bg-transparent text-primary" 
+              v-bind="{ 'disabled' : duplicate.emailCheck }">
+              이메일 중복확인
+            </button>
+            <button id="emailCheck"
+              v-if="duplicate.emailCheck"
+              class="border-0 bg-transparent text-success" disabled>
+              중복확인 완료
+            </button>
           </div>
           <input type="email" name="email" v-validate="'required|email'" v-model="credential.email" data-vv-as="Email"
           class="form-control" :class="{error: errors.has('email')}"  id="email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -33,7 +57,7 @@
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">전화번호</label> 
-          <input type="tel" name="phone" v-validate="'digits:11'" v-model="credential.phoneNumber" data-vv-as="PhoneNumber"
+          <input type="tel" name="phone" v-validate="'digits:11'" v-model="credential.phoneNum" data-vv-as="PhoneNumber"
           class="form-control" :class="{error: errors.has('phone')}" id="phone" aria-describedby="phoneHelp" placeholder="01012345678">
         </div>
         <div class="form-group">
@@ -59,7 +83,7 @@
           id="passwordConfirmation"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Password Again">
         </div> -->
         <div class="col-md-12 text-center mb-3">
-          <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm" @click.prevent="signup">Get Started!</button>
+          <button type="submit" @click="signup" class=" btn btn-block mybtn btn-primary tx-tfm">Get Started!</button>
         </div>
         <div class="col-md-12 ">
           <div class="form-group">
@@ -75,7 +99,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 
-const AUTH_SERVER_URL = process.env.VUE_APP_SERVER_URL
+// const AUTH_SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 import * as VeeValidate from 'vee-validate';
 import ko from 'vee-validate/dist/locale/ko.js'
@@ -105,7 +129,7 @@ export default {
         username: null,
         nickname: null,
         email: null,
-        phoneNumber: null,
+        phoneNum: null,
         password: null,
         passwordConfirmation: null,
       },
@@ -125,40 +149,67 @@ export default {
       this.$validator.validateAll()
 
       if (!this.errors.any()) {
-        if (!this.duplicate.emailCheck) {
-          alert('이메일 중복확인을 해주세요!')
+          return true
         }
-
-        if (!this.duplicate.nicknameCheck) {
-          alert('닉네임 중복확인을 해주세요')          
-        }
-
-        
-      }
     },
 
     nicknameDuplicateCheck() {
       axios({
         method: 'get',
-        url: `${AUTH_SERVER_URL}/checkNickname/${this.credential.nickname}`,
+        url: `http://localhost:8000/api/auth/checkNickname/${this.credential.nickname}`,
         data: this.credential.nickname
       })
-        .then(() => {
-          this.duplicate.nicknameCheck = true
-          alert('닉네임 중복체크 완료!')
+        .then((res) => {
+          if (!res.data) {
+            this.duplicate.nicknameCheck = true
+            alert('닉네임 중복체크 완료!')
+          }
+          else {
+            alert('다른 닉네임을 입력해주세요!')
+          }
         })
     },
     
     emailDuplicateCheck() {
       axios({
         method: 'get',
-        url: `${AUTH_SERVER_URL}/checkEmail/${this.credential.email}`,
+        url: `http://localhost:8000/api/auth/checkEmail/${this.credential.email}`,
       })
-        .then(() => {
-          this.duplicate.emailCheck = true
-          alert('이메일 중복체크 완료!')
+        .then((res) => {
+          if (!res.data) {
+            this.duplicate.emailCheck = true
+            alert('이메일 중복체크 완료!')
+          }
+          else {
+            alert('다른 이메일을 입력해주세요!')
+          }
         })
     },
+
+    signup() {
+      if (this.onSubmit()) {
+        if (this.duplicate.nicknameCheck) {
+          if (this.duplicate.emailCheck) {
+            axios({
+              method: 'post',
+              url: `http://localhost:8000/api/auth/signup`,
+              data: this.credential
+            })
+              .then((res) => {
+                console.log(res)
+                alert('회원가입이 완료되었습니다~!')
+                this.change()
+              })
+          }
+          else {
+            alert('이메일 중복체크를 완료해주세요!')
+          }
+        }
+        else {
+            alert('닉네임 중복체크를 완료해주세요!')
+          }
+      }
+    }
   }
 }
 

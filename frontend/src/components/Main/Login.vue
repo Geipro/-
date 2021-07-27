@@ -53,6 +53,7 @@ import Vue from 'vue'
 
 import * as VeeValidate from 'vee-validate';
 import ko from 'vee-validate/dist/locale/ko.js'
+import axios from 'axios';
 
 ko.messages.email = (field) => `${field}은/는 올바른 이메일 형식이어야 합니다.`
 ko.messages.required = (field) => `${field}이/가 필요합니다.`
@@ -73,7 +74,7 @@ export default {
   data: function () {
     return {
       credential: {
-        username: '',
+        email: '',
         password: '',
       }
     }
@@ -83,8 +84,12 @@ export default {
       this.$emit('change')
     },
     getJWT: function () {
-      this.$store.dispatch('getJWT', this.credential)
-      this.$router.push({ name: 'Home' })
+      axios({
+        method: 'get',
+        url: `http://localhost:8000/api/auth/login`,
+        data: this.credential
+      })
+        .then
     },
 
     onSubmit() {
