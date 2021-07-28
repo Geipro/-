@@ -36,6 +36,9 @@ public class SsafyUserDetails implements UserDetails {
     public String getEmail() {
     	return this.user.getEmail();
     }
+    public String getUserId() {
+    	return this.user.getUserId();
+    }
     public String getNickname() {
     	return this.profile.getNickname();
     }

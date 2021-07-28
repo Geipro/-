@@ -6,4 +6,5 @@ public interface ProfileService {
 	Profile getUserByNickname(String nickname);
 	Profile getUserByUserId(String userId);
 	boolean checkName(String nickname);
+	boolean changeProfileInfo(String userId, String nickname, String aboutMe);
 }

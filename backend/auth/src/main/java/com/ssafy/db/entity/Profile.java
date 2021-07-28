@@ -15,6 +15,7 @@ import org.checkerframework.common.aliasing.qual.Unique;
 @Entity
 @Getter
 @Setter
+
 public class Profile extends BaseEntityForProfile {
 	//String profileId;
 	
