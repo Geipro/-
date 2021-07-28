@@ -85,11 +85,13 @@ export default {
     },
     getJWT: function () {
       axios({
-        method: 'get',
+        method: 'post',
         url: `http://localhost:8000/api/auth/login`,
         data: this.credential
       })
-        .then
+        .then((res) => {
+          console.log(res)
+        })
     },
 
     onSubmit() {
