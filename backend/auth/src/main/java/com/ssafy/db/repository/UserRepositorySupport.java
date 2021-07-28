@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * ìœ ì € ëª¨ë¸ ê´€ë ¨ ë””ë¹„ ì¿¼ë¦¬ ìƒì„±ì„ ìœ„í•œ êµ¬í˜„ ì •ì˜.
+ * À¯Àú ¸ğµ¨ °ü·Ã µğºñ Äõ¸® »ı¼ºÀ» À§ÇÑ ±¸Çö Á¤ÀÇ.
  */
 @Repository
 public class UserRepositorySupport {

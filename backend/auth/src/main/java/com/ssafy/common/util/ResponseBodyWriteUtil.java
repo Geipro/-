@@ -15,7 +15,7 @@ import com.ssafy.common.model.response.BaseResponseBody;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
- * ì»¨íŠ¸ë¡¤ëŸ¬(controller)ê°€ ì•„ë‹Œê³³ì—ì„œ, ì„œë²„ ì‘ë‹µê°’(ë°”ë””) ì§ì ‘ ë³€ê²½ ë° ì „ë‹¬ í•˜ê¸°ìœ„í•œ ìœ í‹¸ ì •ì˜.
+ * ÄÁÆ®·Ñ·¯(controller)°¡ ¾Æ´Ñ°÷¿¡¼­, ¼­¹ö ÀÀ´ä°ª(¹Ùµğ) Á÷Á¢ º¯°æ ¹× Àü´Ş ÇÏ±âÀ§ÇÑ À¯Æ¿ Á¤ÀÇ.
  */
 public class ResponseBodyWriteUtil {
 	

@@ -20,7 +20,7 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 
 /**
- * API ë¬¸ì„œ ê´€ë ¨ swagger2 ì„¤ì • ì •ì˜.
+ * API ¹®¼­ °ü·Ã swagger2 ¼³Á¤ Á¤ÀÇ.
  */
 @Configuration
 @EnableSwagger2
@@ -62,7 +62,7 @@ public class SwaggerConfig {
     @Bean
     UiConfiguration uiConfig() {
         return UiConfigurationBuilder.builder()
-//                .supportedSubmitMethods(newArrayList("get").toArray(new String[0])) //try it ê¸°ëŠ¥ í™œì„±í™” ë²”ìœ„
+//                .supportedSubmitMethods(newArrayList("get").toArray(new String[0])) // try it ±â´É È°¼ºÈ­ ¹üÀ§
 //                .operationsSorter(METHOD)
                 .build();
     }
