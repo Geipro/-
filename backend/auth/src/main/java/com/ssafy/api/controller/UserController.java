@@ -86,7 +86,7 @@ public class UserController {
 
 	
 //	@GetMapping("/settings")
-//	@ApiOperation(value = "ȯ�漳�� ��ȸ", notes = "������ ȯ�漳�� ������ �ҷ��´�")
+//	@ApiOperation(value = "환경설정 셋팅", notes = "환경설정을 설정합니다.")
 //	@ApiResponses({ 
 //		@ApiResponse(code = 200, message = "성공"), 
 //		@ApiResponse(code = 401, message = "인증 실패"),

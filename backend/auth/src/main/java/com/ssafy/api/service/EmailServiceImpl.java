@@ -23,26 +23,26 @@ public class EmailServiceImpl implements EmailService {
 		System.out.println("보내는 대상 : " + to);
 		System.out.println("인증번호 : " + ePw);
 		MimeMessage message = emailSender.createMimeMessage();	
-		message.addRecipients(RecipientType.TO, to);			//������ ���
-		message.setSubject("[우리끼리 예능] 인증번호가 도착했습니다.");	//����
+		message.addRecipients(RecipientType.TO, to);
+		message.setSubject("[우리끼리 예능] 인증번호가 도착했습니다.");
 		String msg = "";
-		/*
-		 * msg += "<div style = 'margin:100px;'>";
-		 * msg += "<h1>안녕하세요 <bold>우리끼리 예능</bold>입니다!</h1>";
-		 * msg += "<br>";
-		 * msg += "<p>아래 코드를 입력해주세요!</p>";
-		 * msg += "<br>";
-		 * msg += "<p>감사합니다!</p>";
-		 * msg += "<br>";
-		 * msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-		 * msgg+= "<h3 style='color:blue;'>비밀번호 수정확인 코드입니다.</h3>";
-		 * msgg+= "<div style='font-size:130%'>";
-		 * msgg+= "CODE : <strong>";
-		 * msgg+= ePw+"</strong><div><br/> ";
-		 * msgg+= "</div>";
-		 */
+		
+		msg += "<div style = 'margin:100px;'>";
+		msg += "<h1>안녕하세요 <bold>우리끼리 예능</bold>입니다!</h1>";
+		msg += "<br>";
+		msg += "<p>아래 코드를 입력해주세요!</p>";
+		msg += "<br>";
+		msg += "<p>감사합니다!</p>";
+		msg += "<br>";
+		msg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+		msg += "<h3 style='color:blue;'>비밀번호 수정확인 코드입니다.</h3>";
+		msg += "<div style='font-size:130%'>";
+		msg += "CODE : <strong>";
+		msg += ePw+"</strong><div><br/> ";
+		msg += "</div>";
+		 
 		message.setText(msg, "utf-8", "html");
-		message.setFrom(new InternetAddress("properties에 작성한 이메일", "우리끼리예능"));	//������ ���
+		message.setFrom(new InternetAddress("geipro7236@gmail.com", "우리끼리예능"));
 		
 		return message;
 	}
