@@ -50,6 +50,7 @@
 
 <script>
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 import * as VeeValidate from 'vee-validate';
 import ko from 'vee-validate/dist/locale/ko.js'
@@ -90,7 +91,11 @@ export default {
         data: this.credential
       })
         .then((res) => {
-          console.log(res)
+          // console.log(res)
+          localStorage.setItem('nickname', res.data.message)
+          localStorage.setItem('JWT_TOKEN', res.data.accessToken)
+          alert(`${localStorage.getItem('nickname')} 님 반갑습니다!`)
+          this.$router.push({ name: 'Index' })
         })
     },
 

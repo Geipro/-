@@ -27,16 +27,40 @@
       <a class="dropdown-item" href="#">Separated link</a>
     </base-dropdown>
 
-    <li class="nav-item">
-      <a class="nav-link" href="#pablo">
-        <span class="no-icon">Log out</span>
+    <li v-if="isLogin" class="nav-item">
+      <a class="nav-link" @click="logout" href="/">
+        <span class="no-icon">Logout</span>
       </a>
     </li>
   </ul>
 </template>
 <script>
   export default {
-    name: 'mobile-menu'
+    name: 'mobile-menu',
+    methods: {
+      logout() {
+        localStorage.removeItem('nickname')
+        localStorage.removeItem('JWT_TOKEN')
+        alert('로그아웃 되었습니다!')
+      }
+    },
+
+    data: function() {
+      return {
+        nickname: null
+      }
+    },
+
+    computed: {
+      isLogin() {
+        if (localStorage.getItem('JWT_TOKEN')) {
+          this.nickname = localStorage.getItem('nickname')
+          return true
+        } else {
+          return false
+        }
+      }
+    }
   }
 </script>
 <style>
