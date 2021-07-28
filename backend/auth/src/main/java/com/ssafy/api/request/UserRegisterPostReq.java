@@ -6,24 +6,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * ìœ ì € íšŒì›ê°€ì… API ([POST] /api/auth/join) ìš”ì²­ì— í•„ìš”í•œ ë¦¬í€˜ìŠ¤íŠ¸ ë°”ë”” ì •ì˜.
+ * À¯Àú È¸¿ø°¡ÀÔ API ([POST] /api/auth/join) ¿äÃ»¿¡ ÇÊ¿äÇÑ ¸®Äù½ºÆ® ¹Ùµğ Á¤ÀÇ.
  */
 @Getter
 @Setter
 @ApiModel("UserRegisterPostRequest")
 public class UserRegisterPostReq {
 	
-	@ApiModelProperty(name="ìœ ì € ID", example="ssafy_web") 
+	@ApiModelProperty(name="À¯Àú ID", example="ssafy_web") 
 	String id;
 	
-	@ApiModelProperty(name="ìœ ì € Password", example="your_password")
+	@ApiModelProperty(name="À¯Àú Password", example="your_password")
 	String password;
-	@ApiModelProperty(name="ìœ ì € email", example="your_email")
+	@ApiModelProperty(name="À¯Àú email", example="your_email")
 	String email;
-	@ApiModelProperty(name="ìœ ì € name", example="í™ê¸¸ë™")
+	@ApiModelProperty(name="À¯Àú name", example="È«±æµ¿")
 	String username;
-	@ApiModelProperty(name="ìœ ì € ì „í™”ë²ˆí˜¸", example="01000000000")
+	@ApiModelProperty(name="À¯Àú ÀüÈ­¹øÈ£", example="01000000000")
 	String phoneNum;
-	@ApiModelProperty(name="ìœ ì € ë‹‰ë„¤ì„", example="ë‹‰ë„¤ì„")
+	@ApiModelProperty(name="À¯Àú ´Ğ³×ÀÓ", example="´Ğ³×ÀÓ")
 	String nickname;
 }

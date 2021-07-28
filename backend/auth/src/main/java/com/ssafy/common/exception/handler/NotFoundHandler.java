@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 /*
- *  
- *  SPAì²˜ë¦¬ë¥¼ ìœ„í•œ ControllerAdvice.
- * ìš”ì²­ì— í•´ë‹¹í•˜ëŠ” Request Mappingì´ ì¡´ì¬í•˜ì§€ ì•Šì„ ê²½ìš° Defaultë¡œ index.htmlì„ ë Œë”ë§í•œë‹¤.
+ * 
+ * SPAÃ³¸®¸¦ À§ÇÑ ControllerAdvice.
+ * ¿äÃ»¿¡ ÇØ´çÇÏ´Â Request MappingÀÌ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì Default·Î index.htmlÀ» ·»´õ¸µÇÑ´Ù.
  * 
  */
 

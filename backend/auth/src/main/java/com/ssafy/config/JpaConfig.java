@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Spring Data JPA ì„¤ì •
+ * Spring Data JPA °ü·Ã Ãß°¡ ¼³Á¤ Á¤ÀÇ.
  */
 @Configuration
 public class JpaConfig {

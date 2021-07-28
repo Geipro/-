@@ -12,7 +12,7 @@ import com.ssafy.db.entity.Profile;
 import com.ssafy.db.entity.User;
 
 /**
- * í˜„ì¬ ì•¡ì„¸ìŠ¤ í† í°ìœ¼ë¡œ ë¶€í„° ì¸ì¦ëœ ìœ ì €ì˜ ë¶€ê°€ ìƒì„¸ì •ë³´(í™œì„±í™” ì—¬ë¶€, ë§Œë£Œ, ë¡¤ ë“±) ì •ì˜.
+ * ÇöÀç ¾×¼¼½º ÅäÅ«À¸·Î ºÎÅÍ ÀÎÁõµÈ À¯ÀúÀÇ ºÎ°¡ »ó¼¼Á¤º¸(È°¼ºÈ­ ¿©ºÎ, ¸¸·á, ·Ñ µî) Á¤ÀÇ.
  */
 public class SsafyUserDetails implements UserDetails {
 	@Autowired

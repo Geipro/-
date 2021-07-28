@@ -44,7 +44,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     		
     		/*
     		 * 
-    		 * Front-end URL /dist ì œê±°í•¨.
+    		 * Front-end¿¡¼­ ÂüÁ¶ÇÏ´Â URLÀ» /dist·Î ¸ÅÇÎ
     		 * 
     		 */
 //        registry.addResourceHandler("/css/**")
