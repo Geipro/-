@@ -21,4 +21,11 @@ public class ProfileRepositorySupport {
     		return Optional.empty();
     	return Optional.ofNullable(profile);
     }
+
+	public Optional<Profile> findUserByUserId(String userId) {
+    	Profile profile = jpaQueryFactory.select(qProfile).from(qProfile).where(qProfile.userId.eq(userId)).fetchOne();
+    	if(profile == null)
+    		return Optional.empty();
+    	return Optional.ofNullable(profile);
+	}
 }

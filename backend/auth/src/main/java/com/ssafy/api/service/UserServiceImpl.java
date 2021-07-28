@@ -33,31 +33,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User createUser(UserRegisterPostReq userRegisterInfo) {
-		User user = new User();
-		StringBuffer key = new StringBuffer();
-		Random rnd = new Random();
-		String userId = ""; 
+		User user = new User();		
 		/*
 		 * userId 암호화 셋팅
-		 */	
-		key.append("p");
-		for(int i = 0; i < 12; i++) {
-			//0~2 숫자 선택
-			int index = rnd.nextInt(3);
-			switch(index) {
-				case 0:
-					//a ~ z (1+ 97 = 98. => (char)98 = 'b'
-					key.append((char) ((int)(rnd.nextInt(26)) + 97));
-					break;
-				case 1:
-					//대문자 A ~ Z
-					key.append((char) ((int)(rnd.nextInt(26)) + 65));
-					break;
-				case 2:
-					//0 ~ 9
-					key.append((rnd.nextInt(10)));
-					break;
-			}
+		 */		
+		String userId = makeUserId();
+
+		while(userRepository.existsByUserId(userId)) {
+			userId = makeUserId();
 		}
 		
 		user.setUserId(userId);
@@ -87,14 +70,43 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean checkPw(String email, String password) {
-		//return userRepository.
+	public boolean changePw(String email, String password) {
+		User user = userRepositorySupport.findUserByEmail(email).get();
+		user.setPassword(passwordEncoder.encode(password));
+		userRepository.save(user);
 		return true;
 	}
 
 	@Override
 	public boolean changeStatus(String email, String password) {
-		
-		return false;
+		User user = userRepositorySupport.findUserByEmail(email).get();
+		user.setUserStatus(1);
+		userRepository.save(user);
+		return true;
+	}
+	
+	private String makeUserId() {
+		StringBuffer key = new StringBuffer();
+		Random rnd = new Random();
+		key.append("p");
+		for(int i = 0; i < 12; i++) {
+			//0~2 숫자 선택
+			int index = rnd.nextInt(3);
+			switch(index) {
+				case 0:
+					//a ~ z (1+ 97 = 98. => (char)98 = 'b'
+					key.append((char) ((int)(rnd.nextInt(26)) + 97));
+					break;
+				case 1:
+					//대문자 A ~ Z
+					key.append((char) ((int)(rnd.nextInt(26)) + 65));
+					break;
+				case 2:
+					//0 ~ 9
+					key.append((rnd.nextInt(10)));
+					break;
+			}
+		}
+		return key.toString();
 	}
 }
