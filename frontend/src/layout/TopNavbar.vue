@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <div class="logo">
-        <a href="/" class="simple-text logo__container d-flex">
+        <a href="/index" class="simple-text logo__container d-flex">
             <div class="logo-img">
                 <img src="img/vue-logo.png" alt="" style="width:30px">
             </div>
