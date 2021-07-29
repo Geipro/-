@@ -6,11 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.checkerframework.common.aliasing.qual.Unique;
+
 /**
- * 유저 모델 정의.
+ * User DB
  */
 @Entity
 @Getter
@@ -19,7 +22,9 @@ public class User extends BaseEntity{
 	@Id
     String userId;
 	
+	@Column(name="email", unique=true)
     String email;
+	
     String username;
     int userStatus;
     

@@ -8,13 +8,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * À¯Àú ·Î±×ÀÎ API ([POST] /api/auth) ¿äÃ»¿¡ ´ëÇÑ ÀÀ´ä°ª Á¤ÀÇ.
+ * ìœ ì € ë¡œê·¸ì¸ API ([POST] /api/auth) ìš”ì²­ì— ëŒ€í•œ ì‘ë‹µê°’ ì •ì˜.
  */
 @Getter
 @Setter
 @ApiModel("UserLoginPostResponse")
 public class UserLoginPostRes extends BaseResponseBody{
-	@ApiModelProperty(name="JWT ÀÎÁõ ÅäÅ«", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN...")
+	@ApiModelProperty(name="JWT ì¸ì¦ í† í°", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN...")
 	String accessToken;
 	
 	public static UserLoginPostRes of(Integer statusCode, String message, String accessToken) {

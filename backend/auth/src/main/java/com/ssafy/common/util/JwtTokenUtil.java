@@ -18,7 +18,7 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 
 /**
- * jwt ÅäÅ« À¯Æ¿ Á¤ÀÇ.
+ * jwt í† í°
  */
 @Component
 public class JwtTokenUtil {

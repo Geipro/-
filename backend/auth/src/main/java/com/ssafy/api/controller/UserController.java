@@ -34,9 +34,9 @@ import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
 /**
- * À¯Àú °ü·Ã API ¿äÃ» Ã³¸®¸¦ À§ÇÑ ÄÁÆ®·Ñ·¯ Á¤ÀÇ.
+ * ìœ ì € ê´€ë ¨ API ìš”ì²­ ì²˜ë¦¬ë¥¼ ìœ„í•œ ì»¨íŠ¸ë¡¤ëŸ¬ ì •ì˜.
  */
-@Api(value = "À¯Àú API", tags = { "User" })
+@Api(value = "ìœ ì € API", tags = { "User" })
 @RestController
 @RequestMapping("/api/profile")
 public class UserController {
@@ -47,44 +47,6 @@ public class UserController {
 	@Autowired
 	ProfileService profileService;
 
-<<<<<<< HEAD
-	@GetMapping("/inquire")
-	@ApiOperation(value = "È¸¿ø º»ÀÎ Á¤º¸ Á¶È¸", notes = "·Î±×ÀÎÇÑ È¸¿ø º»ÀÎÀÇ Á¤º¸¸¦ ÀÀ´äÇÑ´Ù.")
-	@ApiResponses({ 
-		@ApiResponse(code = 200, message = "¼º°ø"), 
-		@ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ"),
-		@ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½"), 
-		@ApiResponse(code = 500, message = "¼­¹ö ¿À·ù") 
-	})
-	public ResponseEntity<UserRes> getMyInfo(@ApiIgnore Authentication authentication) {
-		/**
-		 * ¿äÃ» Çì´õ ¾×¼¼½º ÅäÅ«ÀÌ Æ÷ÇÔµÈ °æ¿ì¿¡¸¸ ½ÇÇàµÇ´Â ÀÎÁõ Ã³¸®ÀÌÈÄ, ¸®ÅÏµÇ´Â ÀÎÁõ Á¤º¸ °´Ã¼(authentication) ÅëÇØ¼­ ¿äÃ»ÇÑ À¯Àú
-		 * ½Äº°. ¾×¼¼½º ÅäÅ«ÀÌ ¾øÀÌ ¿äÃ»ÇÏ´Â °æ¿ì, 403 ¿¡·¯({"error": "Forbidden", "message": "Access
-		 * Denied"}) ¹ß»ı.
-		 */
-		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-		String email = userDetails.getEmail();
-		System.out.println("email = " + email);
-		String nickname = userDetails.getUsername();
-		System.out.println("nickname" + nickname);
-		User user = userService.getUserByEmail(email);
-		Profile profile = profileService.getUserByNickname(nickname);
-		return ResponseEntity.status(200).body(UserRes.of(profile));
-	}
-	
-	@GetMapping("/{nickname}")
-	@ApiOperation(value = "È¸¿ø Á¤º¸ Á¶È¸", notes = "°Ë»öÇÑ È¸¿øÀÇ Á¤º¸¸¦ ÀÀ´äÇÑ´Ù.")
-	@ApiResponses({ 
-		@ApiResponse(code = 200, message = "¼º°ø"), 
-		@ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ"),
-		@ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½"), 
-		@ApiResponse(code = 500, message = "¼­¹ö ¿À·ù") 
-	})
-	public ResponseEntity<UserRes> getUserInfo(@PathVariable String nickname) {
-		/* ¼öÁ¤ÇÊ¿ä */
-		//User user = userService.getUserByNickname(nickname);
-		Profile profile = profileService.getUserByNickname(nickname);
-=======
 	/*
 	 * @GetMapping("/inquire")
 	 * 
@@ -125,7 +87,6 @@ public class UserController {
 		/* ìˆ˜ì •í•„ìš” */
 		// User user = userService.getUserByNickname(nickname);
 		Profile profile = profileService.getProfileByNickname(nickname);
->>>>>>> develop
 		return ResponseEntity.status(200).body(UserRes.of(profile));
 	}
 
@@ -152,11 +113,12 @@ public class UserController {
 	}
 
 //	@GetMapping("/settings")
-//	@ApiOperation(value = "È¯°æ¼³Á¤ Á¶È¸", notes = "º»ÀÎÀÇ È¯°æ¼³Á¤ ¼ÂÆÃÀ» ºÒ·¯¿Â´Ù")
-//	@ApiResponses({
-//		@ApiResponse(code = 200, message = "¼º°ø"),
-//		@ApiResponse(code = 401, message = "ÀÎÁõ ½ÇÆĞ"),
-//		@ApiResponse(code = 404, message = "»ç¿ëÀÚ ¾øÀ½"),
-//		@ApiResponse(code = 500, message = "¼­¹ö ¿À·ù") }) 
+//	@ApiOperation(value = "í™˜ê²½ì„¤ì • ì…‹íŒ…", notes = "í™˜ê²½ì„¤ì •ì„ ì„¤ì •í•©ë‹ˆë‹¤.")
+//	@ApiResponses({ 
+//		@ApiResponse(code = 200, message = "ì„±ê³µ"), 
+//		@ApiResponse(code = 401, message = "ì¸ì¦ ì‹¤íŒ¨"),
+//		@ApiResponse(code = 404, message = "ì‚¬ìš©ì ì—†ìŒ"), 
+//		@ApiResponse(code = 500, message = "ì„œë²„ ì˜¤ë¥˜") 
+//	})
 //	public ResponseEntity<UserRes>
 }

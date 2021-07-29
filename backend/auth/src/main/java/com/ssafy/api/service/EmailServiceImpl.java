@@ -20,29 +20,29 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public MimeMessage createMessage(String to) throws Exception {
-		System.out.println("º¸³»´Â ´ë»ó : " + to);
-		System.out.println("ÀÎÁõ¹øÈ£ : " + ePw);
+		System.out.println("ë³´ë‚´ëŠ” ëŒ€ìƒ : " + to);
+		System.out.println("ì¸ì¦ë²ˆí˜¸ : " + ePw);
 		MimeMessage message = emailSender.createMimeMessage();	
-		message.addRecipients(RecipientType.TO, to);			//º¸³»´Â ´ë»ó
-		message.setSubject("[¿ì¸®³¢¸® ¿¹´É] ÀÎÁõ¹øÈ£°¡ µµÂøÇß½À´Ï´Ù.");	//Á¦¸ñ
+		message.addRecipients(RecipientType.TO, to);
+		message.setSubject("[ìš°ë¦¬ë¼ë¦¬ ì˜ˆëŠ¥] ì¸ì¦ë²ˆí˜¸ê°€ ë„ì°©í–ˆìŠµë‹ˆë‹¤.");
 		String msg = "";
-		/*
-		 * msg += "<div style = 'margin:100px;'>";
-		 * msg += "<h1>¾È³çÇÏ¼¼¿ä <bold>¿ì¸®³¢¸® ¿¹´É</bold>ÀÔ´Ï´Ù!</h1>";
-		 * msg += "<br>";
-		 * msg += "<p>¾Æ·¡ ÄÚµå¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!</p>";
-		 * msg += "<br>";
-		 * msg += "<p>°¨»çÇÕ´Ï´Ù!</p>";
-		 * msg += "<br>";
-		 * msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-		 * msgg+= "<h3 style='color:blue;'>ºñ¹Ğ¹øÈ£ ¼öÁ¤È®ÀÎ ÄÚµåÀÔ´Ï´Ù.</h3>";
-		 * msgg+= "<div style='font-size:130%'>";
-		 * msgg+= "CODE : <strong>";
-		 * msgg+= ePw+"</strong><div><br/> ";
-		 * msgg+= "</div>";
-		 */
+		
+		msg += "<div style = 'margin:100px;'>";
+		msg += "<h1>ì•ˆë…•í•˜ì„¸ìš” <bold>ìš°ë¦¬ë¼ë¦¬ ì˜ˆëŠ¥</bold>ì…ë‹ˆë‹¤!</h1>";
+		msg += "<br>";
+		msg += "<p>ì•„ë˜ ì½”ë“œë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!</p>";
+		msg += "<br>";
+		msg += "<p>ê°ì‚¬í•©ë‹ˆë‹¤!</p>";
+		msg += "<br>";
+		msg += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+		msg += "<h3 style='color:blue;'>ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •í™•ì¸ ì½”ë“œì…ë‹ˆë‹¤.</h3>";
+		msg += "<div style='font-size:130%'>";
+		msg += "CODE : <strong>";
+		msg += ePw+"</strong><div><br/> ";
+		msg += "</div>";
+		 
 		message.setText(msg, "utf-8", "html");
-		message.setFrom(new InternetAddress("properties¿¡ ÀÛ¼ºÇÑ ÀÌ¸ŞÀÏ", "¿ì¸®³¢¸®¿¹´É"));	//º¸³»´Â »ç¶÷
+		message.setFrom(new InternetAddress("geipro7236@gmail.com", "ìš°ë¦¬ë¼ë¦¬ì˜ˆëŠ¥"));
 		
 		return message;
 	}
@@ -50,9 +50,9 @@ public class EmailServiceImpl implements EmailService {
 	public static String createKey() {
 		StringBuffer key = new StringBuffer();
 		Random rnd = new Random();
-		//ÀÎÁõÄÚµå 8ÀÚ¸®
+		//ì¸ì¦ì½”ë“œ 8ìë¦¬
 		for(int i = 0; i < 8; i++) {
-			//0~2 ±îÁö ·£´ı
+			//0~2 ê¹Œì§€ ëœë¤
 			int index = rnd.nextInt(3);
 			switch(index) {
 				case 0:
@@ -60,7 +60,7 @@ public class EmailServiceImpl implements EmailService {
 					key.append((char) ((int)(rnd.nextInt(26)) + 97));
 					break;
 				case 1:
-					//À§¿Í ºñ½ÁÇÏ°Ô A ~ Z
+					//ìœ„ì™€ ë¹„ìŠ·í•˜ê²Œ A ~ Z
 					key.append((char) ((int)(rnd.nextInt(26)) + 65));
 					break;
 				case 2:
