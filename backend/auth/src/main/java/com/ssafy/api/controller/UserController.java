@@ -7,11 +7,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.api.request.UserLoginPostReq;
+import com.ssafy.api.request.UserModifyInfoReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.response.UserRes;
@@ -41,50 +43,75 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	ProfileService profileService;
 
-	@GetMapping("/inquire")
-	@ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.")
-	@ApiResponses({ 
-		@ApiResponse(code = 200, message = "성공"), 
-		@ApiResponse(code = 401, message = "인증 실패"),
-		@ApiResponse(code = 404, message = "사용자 없음"), 
-		@ApiResponse(code = 500, message = "서버 오류") 
-	})
-	public ResponseEntity<UserRes> getMyInfo(@ApiIgnore Authentication authentication) {
-		/**
+	/*
+	 * @GetMapping("/inquire")
+	 * 
+	 * @ApiOperation(value = "회원 본인 정보 조회", notes = "로그인한 회원 본인의 정보를 응답한다.")
+	 * 
+	 * @ApiResponses({
+	 * 
+	 * @ApiResponse(code = 200, message = "성공"),
+	 * 
+	 * @ApiResponse(code = 401, message = "인증 실패"),
+	 * 
+	 * @ApiResponse(code = 404, message = "사용자 없음"),
+	 * 
+	 * @ApiResponse(code = 500, message = "서버 오류") }) public ResponseEntity<UserRes>
+	 * getMyInfo(@ApiIgnore Authentication authentication) {
+	 *//**
 		 * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저
-		 * 식별. 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access
-		 * Denied"}) 발생.
-		 */
-		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-		String email = userDetails.getEmail();
-		System.out.println("email = " + email);
-		String nickname = userDetails.getUsername();
-		System.out.println("nickname" + nickname);
-		User user = userService.getUserByEmail(email);
-		Profile profile = profileService.getUserByNickname(nickname);
-		return ResponseEntity.status(200).body(UserRes.of(profile));
-	}
-	
+		 * 식별. 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message":
+		 * "AccessDenied"}) 발생.
+		 *//*
+			 * SsafyUserDetails userDetails = (SsafyUserDetails)
+			 * authentication.getDetails(); String email = userDetails.getEmail(); String
+			 * userId = userDetails.getUserId(); System.out.println("email = " + email);
+			 * 
+			 * // User user = userService.getUserByEmail(email); Profile profile =
+			 * profileService.getUserByUserId(userId); String nickname =
+			 * profile.getNickname(); System.out.println("nickname" + nickname);
+			 * 
+			 * //Profile profile = profileService.getUserByNickname(nickname); return
+			 * ResponseEntity.status(200).body(UserRes.of(profile)); }
+			 */
+
 	@GetMapping("/{nickname}")
 	@ApiOperation(value = "회원 정보 조회", notes = "검색한 회원의 정보를 응답한다.")
-	@ApiResponses({ 
-		@ApiResponse(code = 200, message = "성공"), 
-		@ApiResponse(code = 401, message = "인증 실패"),
-		@ApiResponse(code = 404, message = "사용자 없음"), 
-		@ApiResponse(code = 500, message = "서버 오류") 
-	})
+	@ApiResponses({ @ApiResponse(code = 200, message = "성공"), @ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"), @ApiResponse(code = 500, message = "서버 오류") })
 	public ResponseEntity<UserRes> getUserInfo(@PathVariable String nickname) {
 		/* 수정필요 */
-		//User user = userService.getUserByNickname(nickname);
-		Profile profile = profileService.getUserByNickname(nickname);
+		// User user = userService.getUserByNickname(nickname);
+		Profile profile = profileService.getProfileByNickname(nickname);
 		return ResponseEntity.status(200).body(UserRes.of(profile));
 	}
 
-	
+	@PutMapping("/modify")
+	@ApiOperation(value = "회원 정보 수정", notes = "내 Profile 정보를 수정하는 페이지.")
+	@ApiResponses({ @ApiResponse(code = 200, message = "성공"), @ApiResponse(code = 401, message = "인증 실패"),
+			@ApiResponse(code = 404, message = "사용자 없음"), @ApiResponse(code = 500, message = "서버 오류") })
+	public ResponseEntity<Boolean> modifyProfile(
+			@RequestBody @ApiParam(value = "프로필 정보수정", required = true) UserModifyInfoReq modifyInfo,
+			@ApiIgnore Authentication authentication) {
+		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+		String userId = userDetails.getUserId();
+		String nickname = modifyInfo.getNickname();
+		String aboutMe = modifyInfo.getAboutMe();
+
+		if (profileService.checkName(nickname)) {
+
+			return ResponseEntity.ok(false);
+		} else {
+			profileService.changeProfileInfo(userId, nickname, aboutMe);
+			return ResponseEntity.ok(true);
+		}
+
+	}
+
 //	@GetMapping("/settings")
 //	@ApiOperation(value = "환경설정 셋팅", notes = "환경설정을 설정합니다.")
 //	@ApiResponses({ 
