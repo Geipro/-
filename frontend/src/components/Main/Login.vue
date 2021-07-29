@@ -1,13 +1,13 @@
 <template>
   <!-- login box start -->
     <div id="first">
-      <div class="myform form ">
+      <div class="myform form">
         <div class="logo mb-3">
           <div class="col-md-12 text-center">
           <h1>Login</h1>
           </div>
         </div>
-        <form action="#" method="post" name="login">
+        <form action="#" method="post" name="login" class=" form-signin ">
           <div class="form-group">
           <label for="exampleInputEmail1">Email</label>
           <input type="email" name="email" v-validate="'required|email'" v-model="credential.email" data-vv-as="Email"

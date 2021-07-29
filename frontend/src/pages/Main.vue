@@ -1,15 +1,18 @@
 <template>
-  <div class="container" style="">
-      <div class="row">
+  <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100 ">
         <div class="col-7">
             <h1 class="text-center align-middle">로고와 이미지가 들어갈 자리</h1>
         </div>
-        <div class="col-5">
+        <div class="col-5 ">
             <login v-if="login"
             @change="change"
+            class=""
             ></login>
             <signup v-if="signup"
-            @change="change">
+            @change="change"
+            class=""
+            >
             </signup>
         </div>
       </div>
