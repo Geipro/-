@@ -36,7 +36,7 @@ import io.swagger.annotations.ApiResponse;
 /**
  * 인증 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
-@Api(value = "인증 API", tags = {"Auth."})
+@Api(value = "인증 API", tags = {"Auth"})
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -63,7 +63,7 @@ public class AuthController {
 		
 		//이메일로 수정
 		User user = userService.getUserByEmail(email);
-		Profile profile = profileService.getUserByUserId(user.getUserId());
+		Profile profile = profileService.getProfileByUserId(user.getUserId());
 		/*
 		 * 탈퇴한 회원(user status 가 1일때)인 경우 로그인 에러
 		 */

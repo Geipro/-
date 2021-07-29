@@ -18,14 +18,14 @@ public class ProfileServiceImpl implements ProfileService {
 	ProfileRepositorySupport profileRepositorySupport;
 	
 	@Override
-	public Profile getUserByNickname(String nickname) {
-		Profile profile = profileRepositorySupport.findUserByNickname(nickname).get();
+	public Profile getProfileByNickname(String nickname) {
+		Profile profile = profileRepositorySupport.findProfileByNickname(nickname).get();
 		return profile;
 	}
 	
 	@Override
-	public Profile getUserByUserId(String userId) {
-		Profile profile = profileRepositorySupport.findUserByUserId(userId).get();
+	public Profile getProfileByUserId(String userId) {
+		Profile profile = profileRepositorySupport.findProfileByUserId(userId).get();
 		return profile;
 	}
 
@@ -36,7 +36,7 @@ public class ProfileServiceImpl implements ProfileService {
 
 	@Override
 	public boolean changeProfileInfo(String userId, String nickname, String aboutMe) {
-		Profile profile = profileRepositorySupport.findUserByUserId(userId).get();
+		Profile profile = profileRepositorySupport.findProfileByUserId(userId).get();
 		profile.setNickname(nickname);
 		profile.setAbout_me(aboutMe);
 		profileRepository.save(profile);
