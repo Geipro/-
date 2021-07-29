@@ -187,27 +187,32 @@ export default {
     },
 
     signup() {
+      console.log(this.passwordConfirmation)
       if (this.onSubmit()) {
-        if (this.duplicate.nicknameCheck) {
-          if (this.duplicate.emailCheck) {
-            axios({
-              method: 'post',
-              url: `http://localhost:8000/api/auth/signup`,
-              data: this.credential
-            })
-              .then((res) => {
-                console.log(res)
-                alert('회원가입이 완료되었습니다~!')
-                this.change()
+        if (this.credential.passwordConfirmation) {
+          if (this.duplicate.nicknameCheck) {
+            if (this.duplicate.emailCheck) {
+              axios({
+                method: 'post',
+                url: `http://localhost:8000/api/auth/signup`,
+                data: this.credential
               })
+                .then((res) => {
+                  console.log(res)
+                  alert('회원가입이 완료되었습니다~!')
+                  this.change()
+                })
+            }
+            else {
+              alert('이메일 중복체크를 완료해주세요!')
+            }
           }
           else {
-            alert('이메일 중복체크를 완료해주세요!')
-          }
-        }
-        else {
             alert('닉네임 중복체크를 완료해주세요!')
           }
+        } else {
+          alert('비밀번호를 한번 더 입력해주세요!')
+        }
       }
     }
   }
