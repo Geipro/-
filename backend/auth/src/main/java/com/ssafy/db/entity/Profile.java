@@ -12,6 +12,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+
 public class Profile extends BaseEntityForProfile {
 	//String profileId;
 	

@@ -15,10 +15,20 @@ public class ProfileRepositorySupport {
     private JPAQueryFactory jpaQueryFactory;
     QProfile qProfile = QProfile.profile;
 	
-	public Optional<Profile> findUserByNickname(String nickname){
+	public Optional<Profile> findProfileByNickname(String nickname){
     	Profile profile = jpaQueryFactory.select(qProfile).from(qProfile).where(qProfile.nickname.eq(nickname)).fetchOne();
     	if(profile == null)
     		return Optional.empty();
     	return Optional.ofNullable(profile);
     }
+<<<<<<< HEAD
+=======
+
+	public Optional<Profile> findProfileByUserId(String userId) {
+    	Profile profile = jpaQueryFactory.select(qProfile).from(qProfile).where(qProfile.userId.eq(userId)).fetchOne();
+    	if(profile == null)
+    		return Optional.empty();
+    	return Optional.ofNullable(profile);
+	}
+>>>>>>> develop
 }

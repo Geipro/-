@@ -10,7 +10,12 @@
                 <img src="img/vue-logo.png" alt="">
             </div>
           <!-- {{title}} -->
-          유저네임님
+          <div v-if="isLogin">
+            <p class="mx-0" v-text="nickname"></p><p>님</p>
+          </div>
+          <div v-if="!isLogin">
+            <a href="/">로그인이 필요합니다</a>
+          </div>
         </a>
       </div>
 
@@ -75,6 +80,13 @@
         default: true
       }
     },
+
+    data: function () {
+        return {
+          nickname: null,
+        }
+      },
+
     provide () {
       return {
         autoClose: this.autoClose
@@ -84,6 +96,15 @@
       sidebarStyle () {
         return {
           backgroundImage: `url(${this.backgroundImage})`
+        }
+      },
+
+      isLogin () {
+        if (localStorage.getItem('JWT_TOKEN')) {
+          this.nickname = localStorage.getItem('nickname')
+          return true
+        } else {
+          return false
         }
       }
     }

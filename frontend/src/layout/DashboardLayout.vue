@@ -31,10 +31,10 @@
         <p>Icons</p>
       </sidebar-link>
 
-      <template slot="bottom-links" class="">
+      <template slot="bottom-links" v-if="isLogin">
         <sidebar-link class="btn-danger"
-                      to="/upgrade">
-          <p>Logout</p>
+                      to="/">
+          <p @click="logout">Logout</p>
         </sidebar-link>
       </template>
     </side-bar>
@@ -68,6 +68,29 @@
       toggleSidebar () {
         if (this.$sidebar.showSidebar) {
           this.$sidebar.displaySidebar(false)
+        }
+      },
+
+      logout() {
+        localStorage.removeItem('nickname')
+        localStorage.removeItem('JWT_TOKEN')
+        alert('로그아웃 되었습니다!')
+      }
+    },
+
+    data: function() {
+      return {
+        nickname: null
+      }
+    },
+
+    computed: {
+      isLogin() {
+        if (localStorage.getItem('JWT_TOKEN')) {
+          this.nickname = localStorage.getItem('nickname')
+          return true
+        } else {
+          return false
         }
       }
     }

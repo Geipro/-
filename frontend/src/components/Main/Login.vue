@@ -1,13 +1,13 @@
 <template>
   <!-- login box start -->
     <div id="first">
-      <div class="myform form ">
+      <div class="myform form">
         <div class="logo mb-3">
           <div class="col-md-12 text-center">
           <h1>Login</h1>
           </div>
         </div>
-        <form action="#" method="post" name="login">
+        <form action="#" method="post" name="login" class=" form-signin ">
           <div class="form-group">
           <label for="exampleInputEmail1">Email</label>
           <input type="email" name="email" v-validate="'required|email'" v-model="credential.email" data-vv-as="Email"
@@ -50,9 +50,11 @@
 
 <script>
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 import * as VeeValidate from 'vee-validate';
 import ko from 'vee-validate/dist/locale/ko.js'
+import axios from 'axios';
 
 ko.messages.email = (field) => `${field}은/는 올바른 이메일 형식이어야 합니다.`
 ko.messages.required = (field) => `${field}이/가 필요합니다.`
@@ -73,7 +75,7 @@ export default {
   data: function () {
     return {
       credential: {
-        username: '',
+        email: '',
         password: '',
       }
     }
@@ -83,8 +85,18 @@ export default {
       this.$emit('change')
     },
     getJWT: function () {
-      this.$store.dispatch('getJWT', this.credential)
-      this.$router.push({ name: 'Home' })
+      axios({
+        method: 'post',
+        url: `http://localhost:8000/api/auth/login`,
+        data: this.credential
+      })
+        .then((res) => {
+          // console.log(res)
+          localStorage.setItem('nickname', res.data.message)
+          localStorage.setItem('JWT_TOKEN', res.data.accessToken)
+          alert(`${localStorage.getItem('nickname')} 님 반갑습니다!`)
+          this.$router.push({ name: 'Index' })
+        })
     },
 
     onSubmit() {

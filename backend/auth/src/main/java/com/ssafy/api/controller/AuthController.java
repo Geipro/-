@@ -35,7 +35,11 @@ import io.swagger.annotations.ApiResponse;
 /**
  * ÀÎÁõ °ü·Ã API ¿äÃ» Ã³¸®¸¦ À§ÇÑ ÄÁÆ®·Ñ·¯ Á¤ÀÇ.
  */
+<<<<<<< HEAD
 @Api(value = "ÀÎÁõ API", tags = {"Auth."})
+=======
+@Api(value = "ì¸ì¦ API", tags = {"Auth"})
+>>>>>>> develop
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -62,7 +66,18 @@ public class AuthController {
 		
 		//ÀÌ¸ŞÀÏ·Î ¼öÁ¤
 		User user = userService.getUserByEmail(email);
+<<<<<<< HEAD
 		// ·Î±×ÀÎ ¿äÃ»ÇÑ À¯Àú·ÎºÎÅÍ ÀÔ·ÂµÈ ÆĞ½º¿öµå ¿Í µğºñ¿¡ ÀúÀåµÈ À¯ÀúÀÇ ¾ÏÈ£È­µÈ ÆĞ½º¿öµå°¡ °°ÀºÁö È®ÀÎ.(À¯È¿ÇÑ ÆĞ½º¿öµåÀÎÁö ¿©ºÎ È®ÀÎ)
+=======
+		Profile profile = profileService.getProfileByUserId(user.getUserId());
+		/*
+		 * íƒˆí‡´í•œ íšŒì›(user status ê°€ 1ì¼ë•Œ)ì¸ ê²½ìš° ë¡œê·¸ì¸ ì—ëŸ¬
+		 */
+		if(user.getUserStatus() == 1)
+			return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "íƒˆí‡´í•œ íšŒì›ì…ë‹ˆë‹¤.", null));
+
+		// ë¡œê·¸ì¸ ìš”ì²­í•œ ìœ ì €ë¡œë¶€í„° ì…ë ¥ëœ íŒ¨ìŠ¤ì›Œë“œ ì™€ ë””ë¹„ì— ì €ì¥ëœ ìœ ì €ì˜ ì•”í˜¸í™”ëœ íŒ¨ìŠ¤ì›Œë“œê°€ ê°™ì€ì§€ í™•ì¸.(ìœ íš¨í•œ íŒ¨ìŠ¤ì›Œë“œì¸ì§€ ì—¬ë¶€ í™•ì¸)
+>>>>>>> develop
 		if(passwordEncoder.matches(password, user.getPassword())) {
 			// À¯È¿ÇÑ ÆĞ½º¿öµå°¡ ¸Â´Â °æ¿ì, ·Î±×ÀÎ ¼º°øÀ¸·Î ÀÀ´ä.(¾×¼¼½º ÅäÅ«À» Æ÷ÇÔÇÏ¿© ÀÀ´ä°ª Àü´Ş)
 			return ResponseEntity.ok(UserLoginPostRes.of(200, "Success", JwtTokenUtil.getToken(email)));

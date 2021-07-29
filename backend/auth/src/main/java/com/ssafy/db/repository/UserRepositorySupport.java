@@ -17,7 +17,7 @@ public class UserRepositorySupport {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
     QUser qUser = QUser.user;
-//    QProfile qProfile = QProfile.profile;
+  //  QProfile qProfile = QProfile.profile;
 
     public Optional<User> findUserByEmail(String email) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
